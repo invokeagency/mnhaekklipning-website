@@ -468,6 +468,9 @@ export default {
   flex-direction: column;
   margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 /* Navigation Bar Styles */
 .main-nav {
@@ -518,6 +521,12 @@ export default {
   }
   .nav-links {
     gap: 0.7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav-links li a {
+    font-size: 0.95rem;
+    padding: 0.25rem 0.5rem;
   }
   .hero {
     height: auto;
@@ -533,11 +542,11 @@ export default {
     padding: 1.2rem 0.5rem 2rem 0.5rem;
   }
   .hero-content {
+    width: 90%;
     padding: 0.5rem;
   }
   .calculator-card {
-    max-width: 98vw;
-    margin-top: 0;
+    width: 90%;
     padding: 1rem;
   }
   .scroll-indicator {
@@ -868,7 +877,7 @@ export default {
 }
 @media (max-width: 600px) {
   .about {
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
   }
   
   .about h2 {
@@ -955,6 +964,7 @@ export default {
   border-radius: 24px;
   padding: 2rem;
   box-shadow: 0 2px 12px rgba(46,107,61,0.06);
+  max-width: 100%;
   width: fit-content;
   margin: 0 auto;
 }
@@ -963,6 +973,8 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
 }
 .contact-form-wrapper {
   width: 100%;
@@ -1116,14 +1128,14 @@ export default {
 }
 @media (max-width: 768px) {
   .contact {
-    margin: 2rem auto;
+    margin: 2rem 0.5rem;
   }
   .contact h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
   }
   .contact-box {
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
   }
   .contact-grid {
     grid-template-columns: 1fr;
@@ -1395,6 +1407,7 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  padding: 0 0.5rem;
 }
 .footer-section {
   display: flex;
@@ -1496,5 +1509,11 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+html {
+  overflow-x: hidden;
+  width: 100%;
 }
 </style>
