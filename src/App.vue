@@ -281,7 +281,11 @@
           </svg>
           <span>Følg os på Facebook</span>
         </a>
-        <p>© {{ new Date().getFullYear() }} MN Hækklipning</p>
+      </div>
+      <div class="footer-bottom">
+        <p>© {{ new Date().getFullYear() }} MN Hækklipning ApS</p>
+        <p>CVR: 45556107</p>
+        <p>Lindbæksvej 6, Kolding</p>
       </div>
     </footer>
 
@@ -1342,6 +1346,11 @@ body {
 .footer-section a:hover { color: var(--lawn-green); }
 
 .footer-bottom {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on very small screens */
+  justify-content: center; /* Center the items */
+  align-items: center;
+  gap: 0.5rem 1.5rem; /* Vertical and horizontal gap */
   padding: 0.8rem 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.8rem;
