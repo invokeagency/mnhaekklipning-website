@@ -470,7 +470,7 @@ export default {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
-  position: relative;
+  box-sizing: border-box;
 }
 /* Navigation Bar Styles */
 .main-nav {
@@ -517,15 +517,12 @@ export default {
   .main-nav {
     height: 90px;
     flex-direction: column;
-    padding: 0.7rem;
+    padding: 0.7rem 1vw;
   }
   .nav-links {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    justify-content: center;
+    gap: 0.7rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    justify-content: center;
   }
   .nav-links li a {
     font-size: 0.95rem;
@@ -537,23 +534,25 @@ export default {
     padding-bottom: 3rem;
   }
   .hero-overlay.hero-row {
+    height: auto;
+    min-height: auto;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.2rem 0.5rem;
+    padding: 1.2rem 1rem 2rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   .hero-content {
+    width: 100%;
+    max-width: 100%;
     padding: 0.5rem;
     margin: 0;
-    text-align: center;
-  }
-  .hero-text {
-    text-align: left;
   }
   .calculator-card {
     width: 100%;
-    max-width: none;
-    margin: 0 0.5rem;
+    max-width: 100%;
+    margin: 1rem auto;
     padding: 1rem;
   }
   .scroll-indicator {
@@ -570,39 +569,38 @@ export default {
   }
 }
 @media (max-width: 600px) {
-  .hero h1 {
-    font-size: 1.8rem;
-    margin: 1rem 0;
-    text-align: center;
-  }
-  .hero-text,
-  .hero-benefits {
-    font-size: 1rem;
-    padding: 0 0.5rem;
-  }
-  .hero-benefits {
-    text-align: left;
-    margin: 1rem 0;
-  }
-  .about {
-    padding: 2rem 0.5rem;
-  }
-  .testimonials-box,
-  .features-box {
+  .hero-overlay.hero-row {
     padding: 1rem 0.5rem;
   }
-  .footer {
+  .hero-content {
+    padding: 0.5rem;
+  }
+  .calculator-card {
     padding: 1rem 0.5rem;
+  }
+  .calc-form input[type="number"],
+  .calc-select {
+    width: 100%;
+    font-size: 16px; /* Prevents iOS zoom on focus */
   }
 }
 .hero {
+  height: calc(100vh - 60px);
   position: relative;
-  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 3rem;
   overflow: hidden;
-  padding-bottom: 3rem;
 }
 .hero-overlay.hero-row {
   width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, 
+    rgba(46,107,61,0.9) 0%,
+    rgba(46,107,61,0.85) 40%,
+    rgba(130,179,102,0.8) 100%
+  );
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -610,11 +608,13 @@ export default {
   gap: 3rem;
   position: relative;
   padding: 2.5rem 1rem 4rem 1rem;
-  box-sizing: border-box;
 }
 .hero-content {
+  text-align: left;
+  color: var(--white);
   width: 100%;
   max-width: 500px;
+  flex: 1 1 auto;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -666,7 +666,7 @@ export default {
   max-width: 350px;
   position: relative;
   z-index: 10;
-  margin: 0;
+  margin-top: 1rem;
   box-sizing: border-box;
 }
 .calculator-card h2 {
@@ -964,10 +964,12 @@ export default {
   font-style: italic;
 }
 .contact {
+  text-align: center;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  max-width: 1400px;
   width: 100%;
-  padding: 0 0.5rem;
   box-sizing: border-box;
-  margin: 2rem 0;
 }
 .contact h2 {
   font-family: 'Poppins', 'Nunito', Arial, sans-serif;
@@ -1528,12 +1530,9 @@ body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
-  min-width: 320px;
 }
 html {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
   overflow-x: hidden;
+  width: 100%;
 }
 </style>
