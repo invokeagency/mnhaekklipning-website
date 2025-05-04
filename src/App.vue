@@ -125,36 +125,38 @@
 
     <!-- Service Features Section -->
     <section class="features" id="services">
-      <h2>Vores ydelser</h2>
-      <div class="features-grid">
-        <div class="feature-item">
-          <h3>Professionel hækklipning</h3>
-          <p>Vi klipper alle typer hække med præcision og omhu. Uanset om det er liguster, bøg, thuja eller andre arter, sikrer vi et flot og ensartet resultat.</p>
-        </div>
-        
-        <div class="feature-item">
-          <h3>Klipning i højden</h3>
-          <p>Med det rette udstyr kan vi også håndtere høje hække. Vi har erfaring med hække op til 4 meter og sørger for sikker og præcis klipning, uanset højden.</p>
-        </div>
+      <h2>Vores Ydelser</h2>
+      <div class="features-box">
+        <div class="features-grid">
+          <div class="feature-item">
+            <h3>Professionel hækklipning</h3>
+            <p>Vi klipper alle typer hække med præcision og omhu. Uanset om det er liguster, bøg, thuja eller andre arter, sikrer vi et flot og ensartet resultat.</p>
+          </div>
+          
+          <div class="feature-item">
+            <h3>Klipning i højden</h3>
+            <p>Med det rette udstyr kan vi også håndtere høje hække. Vi har erfaring med hække op til 4 meter og sørger for sikker og præcis klipning, uanset højden.</p>
+          </div>
 
-        <div class="feature-item">
-          <h3>Sæsonvedligeholdelse</h3>
-          <p>Vi tilbyder løbende vedligeholdelse af din hæk gennem hele sæsonen. Med vores ekspertise sikrer vi, at din hæk forbliver sund og velplejet året rundt med rettidig klipning og pleje.</p>
-        </div>
+          <div class="feature-item">
+            <h3>Sæsonvedligeholdelse</h3>
+            <p>Vi tilbyder løbende vedligeholdelse af din hæk gennem hele sæsonen. Med vores ekspertise sikrer vi, at din hæk forbliver sund og velplejet året rundt med rettidig klipning og pleje.</p>
+          </div>
 
-        <div class="feature-item">
-          <h3>Bortkørsel af hækaffald</h3>
-          <p>Vi tilbyder naturligvis bortkørsel af alt afklip. Vi efterlader haven pæn og ryddelig, så du slipper for besværet med oprydning og bortskaffelse.</p>
-        </div>
+          <div class="feature-item">
+            <h3>Bortkørsel af hækaffald</h3>
+            <p>Vi tilbyder naturligvis bortkørsel af alt afklip. Vi efterlader haven pæn og ryddelig, så du slipper for besværet med oprydning og bortskaffelse.</p>
+          </div>
 
-        <div class="feature-item">
-          <h3>Faste aftaler</h3>
-          <p>Få en fast årlig aftale om hækklipning. Vi husker datoerne og kontakter dig i god tid. Særligt fordelagtige priser ved faste aftaler.</p>
-        </div>
+          <div class="feature-item">
+            <h3>Faste aftaler</h3>
+            <p>Få en fast årlig aftale om hækklipning. Vi husker datoerne og kontakter dig i god tid. Særligt fordelagtige priser ved faste aftaler.</p>
+          </div>
 
-        <div class="feature-item">
-          <h3>Gratis tilbud</h3>
-          <p>Vi giver altid et gratis og uforpligtende tilbud. Kontakt os og få en snak om dine behov - vi finder den bedste løsning til din have.</p>
+          <div class="feature-item">
+            <h3>Gratis tilbud</h3>
+            <p>Vi giver altid et gratis og uforpligtende tilbud. Kontakt os og få en snak om dine behov - vi finder den bedste løsning til din have.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -174,16 +176,18 @@
     <!-- Testimonials / Gallery Section (Placeholder) -->
     <section class="testimonials" id="testimonials">
       <h2>Kundeudtalelser & Før/Efter</h2>
-      <div class="testimonial-gallery">
-        <div class="testimonial-card placeholder">
-          <div class="testimonial-img"></div>
-          <div class="testimonial-quote">"Super flot arbejde – og alt blev ryddet op!"</div>
-          <div class="testimonial-name">– Tidligere kunde</div>
-        </div>
-        <div class="testimonial-card placeholder">
-          <div class="testimonial-img"></div>
-          <div class="testimonial-quote">"Hurtig respons og god pris. Kan varmt anbefales."</div>
-          <div class="testimonial-name">– Privatkunde</div>
+      <div class="testimonials-box">
+        <div class="testimonial-gallery">
+          <div class="testimonial-card placeholder">
+            <div class="testimonial-img"></div>
+            <div class="testimonial-quote">"Super flot arbejde – og alt blev ryddet op!"</div>
+            <div class="testimonial-name">– Tidligere kunde</div>
+          </div>
+          <div class="testimonial-card placeholder">
+            <div class="testimonial-img"></div>
+            <div class="testimonial-quote">"Hurtig respons og god pris. Kan varmt anbefales."</div>
+            <div class="testimonial-name">– Privatkunde</div>
+          </div>
         </div>
       </div>
     </section>
@@ -191,49 +195,77 @@
     <!-- Contact Section -->
     <section class="contact" id="contact" ref="contactSection">
       <h2>Kontakt os</h2>
-      <div class="contact-container">
-        <div class="contact-form-column">
-          <form class="contact-form" @submit.prevent="submitForm">
-            <input type="text" v-model="form.name" placeholder="Navn" required :disabled="isSubmitting" />
-            <input type="tel" v-model="form.phone" placeholder="Telefon" required :disabled="isSubmitting" />
-            <textarea v-model="form.message" placeholder="Besked" rows="3" required :disabled="isSubmitting"></textarea>
-            <span v-if="form.error" class="error-message">{{ form.error }}</span>
-            <span v-if="form.success" class="success-message">{{ form.success }}</span>
-            <button type="submit" class="cta-btn" :disabled="isSubmitting">
-              {{ isSubmitting ? 'Sender...' : 'Send en besked' }}
-            </button>
-          </form>
-        </div>
-        <div class="contact-profiles">
-          <div class="profile-card">
-            <div class="profile-image mathias"></div>
-            <div class="profile-info">
-              <h3>Mathias</h3>
-              <a href="tel:+4525540004" class="profile-phone">
-                <svg class="contact-icon" viewBox="0 0 24 24" width="14" height="14">
-                  <path fill="currentColor" d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02c-.37-1.11-.56-2.3-.56-3.53c0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
-                </svg>
-                +45 2554 0004
-              </a>
-            </div>
+      <div class="contact-box">
+        <div class="contact-grid">
+          <!-- Contact Form -->
+          <div class="contact-form-wrapper">
+            <form class="contact-form" @submit.prevent="submitForm">
+              <input 
+                type="text" 
+                v-model="form.name" 
+                placeholder="Navn" 
+                required 
+                :disabled="isSubmitting" 
+              />
+              <input 
+                type="tel" 
+                v-model="form.phone" 
+                placeholder="Telefon" 
+                required 
+                :disabled="isSubmitting" 
+              />
+              <textarea 
+                v-model="form.message" 
+                placeholder="Besked" 
+                rows="3" 
+                required 
+                :disabled="isSubmitting"
+              ></textarea>
+              <span v-if="form.error" class="error-message">{{ form.error }}</span>
+              <span v-if="form.success" class="success-message">{{ form.success }}</span>
+              <button type="submit" class="cta-btn" :disabled="isSubmitting">
+                {{ isSubmitting ? 'Sender...' : 'Send en besked' }}
+              </button>
+            </form>
           </div>
-          <div class="profile-card">
-            <div class="profile-image nikolaj"></div>
-            <div class="profile-info">
-              <h3>Nikolaj</h3>
-              <a href="tel:+4542776672" class="profile-phone">
-                <svg class="contact-icon" viewBox="0 0 24 24" width="14" height="14">
-                  <path fill="currentColor" d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02c-.37-1.11-.56-2.3-.56-3.53c0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
-                </svg>
-                +45 4277 6672
-              </a>
+
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <!-- Profile Cards -->
+            <div class="profile-cards">
+              <div class="profile-card">
+                <div class="profile-image mathias"></div>
+                <div class="profile-info">
+                  <h3>Mathias</h3>
+                  <a href="tel:+4525540004" class="profile-phone">
+                    <svg class="contact-icon" viewBox="0 0 24 24" width="14" height="14">
+                      <path fill="currentColor" d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02c-.37-1.11-.56-2.3-.56-3.53c0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                    </svg>
+                    +45 2554 0004
+                  </a>
+                </div>
+              </div>
+              <div class="profile-card">
+                <div class="profile-image nikolaj"></div>
+                <div class="profile-info">
+                  <h3>Nikolaj</h3>
+                  <a href="tel:+4542776672" class="profile-phone">
+                    <svg class="contact-icon" viewBox="0 0 24 24" width="14" height="14">
+                      <path fill="currentColor" d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02c-.37-1.11-.56-2.3-.56-3.53c0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                    </svg>
+                    +45 4277 6672
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="contact-email">
-            <svg class="contact-icon" viewBox="0 0 24 24" width="14" height="14">
-              <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/>
-            </svg>
-            <a href="mailto:mnhækklipningdk@gmail.com">mnhækklipningdk@gmail.com</a>
+            
+            <!-- Email -->
+            <div class="contact-email">
+              <svg class="contact-icon" viewBox="0 0 24 24" width="14" height="14">
+                <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/>
+              </svg>
+              <a href="mailto:mnhækklipningdk@gmail.com">mnhækklipningdk@gmail.com</a>
+            </div>
           </div>
         </div>
       </div>
@@ -431,6 +463,11 @@ export default {
     var(--white) 100%
   );
   color: var(--forest-green);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 /* Navigation Bar Styles */
 .main-nav {
@@ -484,20 +521,42 @@ export default {
   }
   .hero {
     height: auto;
-    min-height: calc(100vh - 90px);
-    margin-bottom: 2rem;
+    min-height: auto;
+    padding-bottom: 3rem;
   }
   .hero-overlay.hero-row {
-    height: 100%;
-    min-height: 100%;
+    height: auto;
+    min-height: auto;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.2rem 0.5rem 4rem 0.5rem;
+    padding: 1.2rem 0.5rem 2rem 0.5rem;
+  }
+  .hero-content {
+    padding: 0.5rem;
   }
   .calculator-card {
     max-width: 98vw;
     margin-top: 0;
+    padding: 1rem;
+  }
+  .scroll-indicator {
+    bottom: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .hero-text {
+    font-size: 1rem;
+  }
+  .hero-benefits li {
+    font-size: 0.95rem;
+  }
+  .scroll-text {
+    font-size: 0.95rem;
   }
 }
 .hero {
@@ -709,9 +768,8 @@ export default {
   box-shadow: 0 4px 16px rgba(46,107,61,0.18);
 }
 .features {
-  background: var(--white);
-  padding: 4rem 1.2rem;
   text-align: center;
+  padding: 1rem 1.2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -719,7 +777,13 @@ export default {
   font-family: 'Poppins', 'Nunito', Arial, sans-serif;
   font-size: 1.8rem;
   color: var(--forest-green);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.features-box {
+  background: var(--white);
+  padding: 2rem 1.2rem;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(46,107,61,0.06);
 }
 .features-grid {
   display: grid;
@@ -758,17 +822,16 @@ export default {
 }
 @media (max-width: 600px) {
   .features {
-    padding: 3rem 1rem;
+    padding: 1rem 1rem;
   }
   
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .features-box {
+    padding: 1.5rem 1rem;
   }
   
   .features h2 {
     font-size: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
   
   .feature-item {
@@ -821,19 +884,21 @@ export default {
   }
 }
 .testimonials {
-  background: var(--white);
-  border-radius: 24px;
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem 1.2rem 1.5rem 1.2rem;
-  box-shadow: 0 2px 12px rgba(46,107,61,0.06);
   text-align: center;
+  max-width: 900px;
+  margin: 3rem auto;
 }
 .testimonials h2 {
   font-family: 'Poppins', 'Nunito', Arial, sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   color: var(--forest-green);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.testimonials-box {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 2rem 1.2rem 1.5rem 1.2rem;
+  box-shadow: 0 2px 12px rgba(46,107,61,0.06);
 }
 .testimonial-gallery {
   display: flex;
@@ -872,87 +937,106 @@ export default {
   font-style: italic;
 }
 .contact {
-  background: var(--white);
-  border-radius: 24px;
-  max-width: 900px;
-  margin: 2.5rem auto 2rem auto;
-  padding: 2rem 1.2rem 1.5rem 1.2rem;
-  box-shadow: 0 2px 12px rgba(46,107,61,0.06);
   text-align: center;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  max-width: 1400px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .contact h2 {
   font-family: 'Poppins', 'Nunito', Arial, sans-serif;
-  font-size: 1.3rem;
+  font-size: 2rem;
   color: var(--forest-green);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
-.contact-container {
-  display: flex;
+.contact-box {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(46,107,61,0.06);
+  width: fit-content;
+  margin: 0 auto;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: stretch;
-  min-height: 360px;
 }
-.contact-form-column {
-  flex: 1;
+.contact-form-wrapper {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
 }
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
+  width: 100%;
   height: 100%;
 }
 .contact-form input,
 .contact-form textarea {
-  border: 1.5px solid var(--lawn-green);
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--lawn-green);
   border-radius: 12px;
   font-size: 1rem;
   font-family: 'Open Sans', Arial, sans-serif;
   background: var(--light-grey);
   color: var(--forest-green);
   outline: none;
-  transition: border 0.2s;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+.contact-form textarea {
+  min-height: 150px;
+  resize: vertical;
+  flex: 1;
 }
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border: 1.5px solid var(--leaf-green);
+  border-color: var(--leaf-green);
+  background: white;
+  box-shadow: 0 2px 8px rgba(46,107,61,0.08);
 }
-.contact-form input {
-  padding: 0.8rem 1rem;
-}
-.contact-form textarea {
-  flex-grow: 1;
-  min-height: 140px;
-  resize: vertical;
-  padding: 1rem;
-}
-.contact-profiles {
-  flex: 1;
+.contact-info {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 1.5rem;
+  width: 100%;
+  gap: 1rem;
   height: 100%;
+}
+.profile-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 85%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 .profile-card {
   background: var(--light-grey);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1.2rem;
   width: 100%;
-  max-width: 280px;
-  transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 .profile-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(46,107,61,0.1);
+  background: white;
 }
 .profile-image {
-  width: 90px;
-  height: 90px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
@@ -960,88 +1044,168 @@ export default {
   flex-shrink: 0;
 }
 .profile-image.mathias {
-  /* Using placeholder color until we have the actual image */
-  background-color: var(--lawn-green);
+  background-image: url('https://placehold.co/64x64?text=M');
+  background-color: unset;
 }
 .profile-image.nikolaj {
-  /* Using placeholder color until we have the actual image */
-  background-color: var(--lawn-green);
+  background-image: url('https://placehold.co/64x64?text=N');
+  background-color: unset;
 }
 .profile-info {
-  text-align: left;
   flex-grow: 1;
 }
 .profile-info h3 {
   color: var(--forest-green);
   font-family: 'Nunito', Arial, sans-serif;
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  text-align: left;
 }
 .profile-phone {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
   color: var(--forest-green);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: color 0.2s;
+  white-space: nowrap;
 }
 .profile-phone:hover {
   color: var(--leaf-green);
 }
 .contact-email {
+  background: var(--light-grey);
+  border-radius: 16px;
+  padding: 1.2rem 2rem;
+  width: 85%;
+  max-width: 400px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  padding: 0.8rem;
-  background: var(--light-grey);
-  border-radius: 12px;
-  width: 100%;
-  max-width: 280px;
-  margin-top: auto;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+.contact-email:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46,107,61,0.1);
+  background: white;
 }
 .contact-email a {
   color: var(--forest-green);
   text-decoration: none;
+  font-size: 1rem;
   transition: color 0.2s;
+  white-space: nowrap;
+  padding: 0 0.5rem;
 }
 .contact-email a:hover {
   color: var(--leaf-green);
 }
+.contact-icon {
+  flex-shrink: 0;
+}
+@media (max-width: 1024px) {
+  .contact-box {
+    padding: 2rem;
+  }
+  
+  .contact-grid {
+    gap: 2rem;
+  }
+}
 @media (max-width: 768px) {
-  .contact-container {
-    flex-direction: column;
+  .contact {
+    margin: 2rem auto;
+  }
+  .contact h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-box {
+    padding: 1.5rem;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
     min-height: auto;
-    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.9rem;
   }
   .contact-form textarea {
     min-height: 120px;
   }
-  .contact-form .cta-btn {
-    margin-top: 0.3rem;
+  .profile-card,
+  .contact-email {
+    padding: 0.5rem;
   }
-  .contact-profiles {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    height: auto;
+  .profile-cards {
+    flex: none;
+    margin-bottom: 1rem;
   }
-  .profile-card {
-    padding: 1rem;
-    min-width: 280px;
+  .profile-cards,
+  .contact-email {
+    width: 100%;
+    max-width: none;
+    align-items: stretch;
   }
   .profile-image {
-    width: 70px;
-    height: 70px;
+    width: 56px;
+    height: 56px;
   }
   .profile-info h3 {
     font-size: 1.1rem;
   }
-  .contact-email {
-    margin-top: 0.5rem;
+  .profile-phone,
+  .contact-email a {
+    font-size: 0.95rem;
   }
+  .contact-form-wrapper,
+  .contact-info {
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+  .contact-form {
+    align-items: stretch;
+  }
+  .cta-btn {
+    width: 100%;
+    max-width: none;
+  }
+}
+@media (max-width: 480px) {
+  .contact-box {
+    padding: 1.2rem;
+  }
+  .contact-grid {
+    gap: 1.5rem;
+  }
+  .contact h2 {
+    font-size: 1.6rem;
+  }
+  .profile-image {
+    width: 48px;
+    height: 48px;
+  }
+}
+.success-message {
+  background: var(--lawn-green);
+  color: var(--forest-green);
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.error-message {
+  background: #fff0f0;
+  color: #dc3545;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  text-align: center;
 }
 .hero-benefits {
   list-style: none;
@@ -1096,7 +1260,6 @@ export default {
   align-items: center;
   gap: 0.5rem;
 }
-
 .scroll-text {
   font-family: 'Nunito', Arial, sans-serif;
   font-size: 1.1rem;
@@ -1104,11 +1267,9 @@ export default {
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
   white-space: nowrap;
 }
-
 .scroll-indicator:hover {
   opacity: 1;
 }
-
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateX(-50%) translateY(0);
@@ -1120,7 +1281,6 @@ export default {
     transform: translateX(-50%) translateY(-5px);
   }
 }
-
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -1130,7 +1290,6 @@ export default {
   justify-content: center;
   z-index: 2000;
 }
-
 .modal-content {
   background: var(--white);
   border-radius: 18px;
@@ -1141,7 +1300,6 @@ export default {
   position: relative;
   text-align: left;
 }
-
 .modal-close {
   position: absolute;
   top: 0.7rem;
@@ -1153,24 +1311,20 @@ export default {
   cursor: pointer;
   line-height: 1;
 }
-
 .modal-content h3 {
   font-family: 'Poppins', 'Nunito', Arial, sans-serif;
   font-size: 1.18rem;
   color: var(--forest-green);
   margin-bottom: 0.7rem;
 }
-
 .modal-body {
   font-size: 1rem;
   color: var(--forest-green);
 }
-
 .modal-body ol {
   padding-left: 1.2em;
   margin: 0;
 }
-
 .modal-body ol li {
   background: #f4f8f4;
   border-radius: 10px;
@@ -1183,20 +1337,16 @@ export default {
   line-height: 1.5;
   list-style-position: inside;
 }
-
 .modal-body ol li:last-child {
   margin-bottom: 0;
 }
-
 .modal-body ol li a {
   color: var(--leaf-green);
   text-decoration: underline;
 }
-
 .modal-body ol li a:hover {
   color: var(--forest-green);
 }
-
 @media (max-width: 600px) {
   .modal-content {
     max-width: 98vw;
@@ -1204,7 +1354,6 @@ export default {
     font-size: 0.98rem;
   }
 }
-
 .modal-footer {
   margin-top: 1.5rem;
   display: flex;
@@ -1212,7 +1361,6 @@ export default {
   padding-top: 1rem;
   border-top: 1px solid rgba(46,107,61,0.1);
 }
-
 .modal-footer .cta-btn {
   background: var(--leaf-green);
   color: var(--white);
@@ -1226,21 +1374,20 @@ export default {
   transition: background 0.2s, transform 0.2s;
   box-shadow: 0 2px 8px rgba(46,107,61,0.12);
 }
-
 .modal-footer .cta-btn:hover {
   background: var(--forest-green);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(46,107,61,0.18);
 }
-
 .footer {
   background: var(--forest-green);
   color: white;
-  padding: 0.8rem 2rem;
-  margin-top: 4rem;
+  padding: 1.5rem 2rem 0;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 3rem 0 0 0;
 }
-
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -1249,27 +1396,23 @@ export default {
   justify-content: center;
   gap: 1rem;
 }
-
 .footer-section {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .footer-section span {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
 }
-
 .footer-divider {
   width: 1px;
   height: 20px;
   background: rgba(255,255,255,0.2);
   margin: 0 0.5rem;
 }
-
 .social-link {
   display: flex;
   align-items: center;
@@ -1282,44 +1425,38 @@ export default {
   color: white;
   text-decoration: none;
 }
-
 .social-link:hover {
   background-color: rgba(255,255,255,0.1);
 }
-
 .contact-icon {
   vertical-align: middle;
   opacity: 0.9;
 }
-
 .footer-section a {
   color: white;
   text-decoration: none;
   transition: color 0.2s;
 }
-
 .footer-section a:hover {
   color: var(--lawn-green);
 }
-
 .footer-bottom {
   text-align: center;
-  margin-top: 0.8rem;
-  padding-top: 0.8rem;
+  margin: 0.8rem 0 0 0;
+  padding: 0.8rem 0 0.8rem 0;
   border-top: 1px solid rgba(255,255,255,0.1);
   font-size: 0.85rem;
   opacity: 0.8;
+  background: var(--forest-green);
 }
-
 .footer-bottom p {
   margin: 0;
+  padding: 0;
 }
-
 @media (max-width: 800px) {
   .footer {
-    padding: 0.8rem;
+    padding: 1.5rem 0.8rem 1rem;
   }
-
   .footer-content {
     flex-direction: column;
     gap: 0.8rem;
@@ -1335,19 +1472,10 @@ export default {
     justify-content: center;
   }
 }
-
-@media (max-width: 900px) {
-  .calculator-card {
-    max-width: 95%;
-    padding: 1.2rem;
-  }
-}
-
 .calc-form input[type="number"].error {
   border-color: #dc3545;
   background-color: #fff8f8;
 }
-
 .error-message {
   color: #dc3545;
   font-size: 0.85rem;
@@ -1355,7 +1483,6 @@ export default {
   display: block;
   font-family: 'Open Sans', Arial, sans-serif;
 }
-
 .success-message {
   color: var(--forest-green);
   background: var(--lawn-green);
@@ -1365,5 +1492,9 @@ export default {
   margin: 0.5rem 0;
   display: block;
   font-family: 'Open Sans', Arial, sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
