@@ -1,7 +1,9 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: '/mnhaekklipning-website/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/mnhaekklipning-website/'
+    : '/',
   outputDir: 'docs',
   assetsDir: ''
 })

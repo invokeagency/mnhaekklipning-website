@@ -15,12 +15,7 @@
     <section 
       class="hero hero-with-calc" 
       id="hero" 
-      :style="{ 
-        backgroundImage: `url(${backgroundImageUrl})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
-      }"
+      :style="{ backgroundImage: `url(${backgroundImageUrl})` }"
     >
       <div class="hero-overlay hero-row">
         <div class="hero-content">
@@ -337,10 +332,8 @@ export default {
   },
   computed: {
     backgroundImageUrl() {
-      const baseUrl = process.env.NODE_ENV === 'production' 
-        ? '/mnhaekklipning-website' 
-        : '';
-      return `${baseUrl}/img/haek1.jpg`;
+      const baseUrl = process.env.BASE_URL || '/';
+      return `${baseUrl}img/haek1.jpg`;
     },
     formattedPrice() {
       if (!this.calc.meter || !this.calc.height) return '-';
@@ -592,6 +585,9 @@ export default {
   justify-content: center;
   margin-bottom: 3rem;
   overflow: hidden;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .hero-overlay.hero-row {
   width: 100%;
@@ -606,10 +602,17 @@ export default {
   align-items: flex-start;
   justify-content: center;
   gap: 3rem;
-  position: relative;
+  position: absolute;
   padding: 2.5rem 1rem 4rem 1rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 .hero-content {
+  position: relative;
+  z-index: 2;
   text-align: left;
   color: var(--white);
   width: 100%;
@@ -658,14 +661,14 @@ export default {
   transform: translateY(-2px);
 }
 .calculator-card {
+  position: relative;
+  z-index: 2;
   background: var(--white);
   border-radius: 22px;
   box-shadow: 0 4px 24px rgba(46,107,61,0.13);
   padding: 1.5rem;
   width: 100%;
   max-width: 350px;
-  position: relative;
-  z-index: 10;
   margin-top: 1rem;
   box-sizing: border-box;
 }
@@ -965,9 +968,8 @@ export default {
 }
 .contact {
   text-align: center;
-  margin: 3rem auto;
+  margin: 3rem 0;
   padding: 0 1rem;
-  max-width: 1400px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -980,10 +982,9 @@ export default {
 .contact-box {
   background: var(--white);
   border-radius: 24px;
-  padding: 2rem 1rem;
+  padding: 2rem;
   box-shadow: 0 2px 12px rgba(46,107,61,0.06);
-  width: 100%;
-  max-width: 1200px;
+  width: fit-content;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -999,14 +1000,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: flex-start;
 }
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   width: 100%;
-  height: 100%;
 }
 .contact-form input,
 .contact-form textarea {
@@ -1034,20 +1033,17 @@ export default {
   box-shadow: 0 2px 8px rgba(46,107,61,0.08);
 }
 .contact-info {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 1rem;
-  height: 100%;
 }
 .profile-cards {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  box-sizing: border-box;
+  margin: 0;
 }
 .profile-card {
   background: var(--light-grey);
@@ -1109,8 +1105,7 @@ export default {
   border-radius: 16px;
   padding: 1.2rem 2rem;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1136,90 +1131,19 @@ export default {
 .contact-icon {
   flex-shrink: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
+  .contact {
+    margin: 2rem 0;
+  }
+  
   .contact-box {
-    padding: 2rem;
+    width: 100%;
+    padding: 1.5rem;
   }
   
   .contact-grid {
-    gap: 2rem;
-  }
-}
-@media (max-width: 768px) {
-  .contact {
-    margin: 2rem 0.5rem;
-  }
-  .contact h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-  }
-  .contact-box {
-    padding: 1.5rem 1rem;
-  }
-  .contact-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-    min-height: auto;
-    align-items: stretch;
-  }
-  .contact-form input,
-  .contact-form textarea {
-    padding: 0.9rem;
-  }
-  .contact-form textarea {
-    min-height: 120px;
-  }
-  .profile-card,
-  .contact-email {
-    padding: 0.5rem;
-  }
-  .profile-cards {
-    flex: none;
-    margin-bottom: 1rem;
-  }
-  .profile-cards,
-  .contact-email {
-    width: 100%;
-    max-width: none;
-    align-items: stretch;
-  }
-  .profile-image {
-    width: 56px;
-    height: 56px;
-  }
-  .profile-info h3 {
-    font-size: 1.1rem;
-  }
-  .profile-phone,
-  .contact-email a {
-    font-size: 0.95rem;
-  }
-  .contact-form-wrapper,
-  .contact-info {
-    align-items: stretch;
-    justify-content: flex-start;
-  }
-  .contact-form {
-    align-items: stretch;
-  }
-  .cta-btn {
-    width: 100%;
-    max-width: none;
-  }
-}
-@media (max-width: 480px) {
-  .contact-box {
-    padding: 1.2rem;
-  }
-  .contact-grid {
-    gap: 1.5rem;
-  }
-  .contact h2 {
-    font-size: 1.6rem;
-  }
-  .profile-image {
-    width: 48px;
-    height: 48px;
   }
 }
 .success-message {
