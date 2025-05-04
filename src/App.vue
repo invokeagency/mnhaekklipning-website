@@ -172,10 +172,10 @@
       <h2>Kontakt os</h2>
       <div class="contact-container">
         <div class="contact-form-column">
-          <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <input type="text" name="name" placeholder="Navn" required />
-            <input type="tel" name="phone" placeholder="Telefon" required />
-            <textarea name="message" placeholder="Besked" rows="3" required></textarea>
+          <form class="contact-form" @submit.prevent="submitForm">
+            <input type="text" v-model="form.name" placeholder="Navn" required />
+            <input type="tel" v-model="form.phone" placeholder="Telefon" required />
+            <textarea v-model="form.message" placeholder="Besked" rows="3" required></textarea>
             <button type="submit" class="cta-btn">Send en besked</button>
           </form>
         </div>
@@ -252,6 +252,11 @@ export default {
   name: 'LandingPage',
   data() {
     return {
+      form: {
+        name: '',
+        phone: '',
+        message: ''
+      },
       calc: {
         meter: 10,
         height: 150,
@@ -320,6 +325,10 @@ export default {
         top: offset,
         behavior: 'smooth'
       });
+    },
+    submitForm() {
+      alert('Tak for din besked! Vi vender tilbage hurtigst muligt.');
+      this.form = { name: '', phone: '', message: '' };
     }
   }
 }
