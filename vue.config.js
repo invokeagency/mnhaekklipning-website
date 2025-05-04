@@ -3,5 +3,6 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: '/mnhaekklipning-website/',
   outputDir: 'docs',
-  assetsDir: ''
+  assetsDir: '',
+  indexPath: '../index.html'
 })
