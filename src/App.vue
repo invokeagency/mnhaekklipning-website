@@ -194,10 +194,14 @@
       <div class="contact-container">
         <div class="contact-form-column">
           <form class="contact-form" @submit.prevent="submitForm">
-            <input type="text" v-model="form.name" placeholder="Navn" required />
-            <input type="tel" v-model="form.phone" placeholder="Telefon" required />
-            <textarea v-model="form.message" placeholder="Besked" rows="3" required></textarea>
-            <button type="submit" class="cta-btn">Send en besked</button>
+            <input type="text" v-model="form.name" placeholder="Navn" required :disabled="isSubmitting" />
+            <input type="tel" v-model="form.phone" placeholder="Telefon" required :disabled="isSubmitting" />
+            <textarea v-model="form.message" placeholder="Besked" rows="3" required :disabled="isSubmitting"></textarea>
+            <span v-if="form.error" class="error-message">{{ form.error }}</span>
+            <span v-if="form.success" class="success-message">{{ form.success }}</span>
+            <button type="submit" class="cta-btn" :disabled="isSubmitting">
+              {{ isSubmitting ? 'Sender...' : 'Send en besked' }}
+            </button>
           </form>
         </div>
         <div class="contact-profiles">
@@ -269,14 +273,21 @@
 </template>
 
 <script>
+import emailjs from '@emailjs/browser';
+
 export default {
   name: 'LandingPage',
+  mounted() {
+    emailjs.init('R-5pSmyto-K4pmOTV');
+  },
   data() {
     return {
       form: {
         name: '',
         phone: '',
-        message: ''
+        message: '',
+        error: '',
+        success: ''
       },
       calc: {
         meter: 10,
@@ -288,7 +299,8 @@ export default {
           height: ''
         }
       },
-      showGuide: false
+      showGuide: false,
+      isSubmitting: false
     }
   },
   computed: {
@@ -365,9 +377,39 @@ export default {
         behavior: 'smooth'
       });
     },
-    submitForm() {
-      alert('Tak for din besked! Vi vender tilbage hurtigst muligt.');
-      this.form = { name: '', phone: '', message: '' };
+    async submitForm() {
+      this.isSubmitting = true;
+      this.form.error = '';
+      this.form.success = '';
+      
+      try {
+        const templateParams = {
+          from_name: this.form.name,
+          phone_number: this.form.phone,
+          message: this.form.message
+        };
+
+        await emailjs.send(
+          'service_xb4jtwm',
+          'template_gimep2q',
+          templateParams,
+          'R-5pSmyto-K4pmOTV'
+        );
+
+        // Clear form and show success
+        this.form = { 
+          name: '', 
+          phone: '', 
+          message: '', 
+          error: '',
+          success: 'Tak for din besked! Vi vender tilbage hurtigst muligt.' 
+        };
+      } catch (error) {
+        console.error('Failed to send email:', error);
+        this.form.error = 'Der opstod en fejl. Prøv igen senere, eller ring til os direkte.';
+      } finally {
+        this.isSubmitting = false;
+      }
     }
   }
 }
@@ -1310,6 +1352,17 @@ export default {
   color: #dc3545;
   font-size: 0.85rem;
   margin-top: 0.3rem;
+  display: block;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.success-message {
+  color: var(--forest-green);
+  background: var(--lawn-green);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
   display: block;
   font-family: 'Open Sans', Arial, sans-serif;
 }
