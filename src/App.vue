@@ -13,80 +13,82 @@
     </nav>
     <!-- Hero + Calculator Section (side by side) -->
     <section 
-      class="hero hero-with-calc" 
+      class="hero" 
       id="hero" 
       :style="{ backgroundImage: `url(${backgroundImageUrl})` }"
     >
-      <div class="hero-overlay hero-row">
-        <div class="hero-content">
-          <h1>Velkommen til MN hækklipning</h1>
-          <div class="hero-text">
-            <p>Hos MN hækklipning sørger vi for professionel hækklipning og beskæring af din hæk. Vi er din lokale hækklipningsekspert i Syd- og Midtjylland.</p>
-            <ul class="hero-benefits">
-              <li>✓ Præcis og professionel klipning</li>
-              <li>✓ Fleksible tidspunkter</li>
-              <li>✓ Konkurrencedygtige priser</li>
-              <li>✓ Grundig oprydning efter arbejdet</li>
-            </ul>
-            <p>Vi kører i Kolding og omegn - klar til at give din hæk den perfekte finish!</p>
-          </div>
-          <div class="hero-cta-wrapper">
-            <button class="hero-cta-btn" @click="scrollTo('contact')">Kontakt os</button>
-          </div>
-        </div>
-        <div class="calculator-card">
-          <h2>Beregn din pris</h2>
-          <form class="calc-form" @submit.prevent="scrollToContact">
-            <label>
-              Hvor mange meter hæk?
-              <input 
-                type="number" 
-                min="1" 
-                step="1" 
-                onkeydown="return event.keyCode !== 190" 
-                @input="validatePositiveInteger($event, 'meter')" 
-                v-model.number="calc.meter"
-                :class="{ 'error': calc.errors.meter }"
-                required 
-              />
-              <span v-if="calc.errors.meter" class="error-message">{{ calc.errors.meter }}</span>
-            </label>
-            
-            <label>
-              Højde på hækken (cm)
-              <input 
-                type="number" 
-                min="50" 
-                max="250" 
-                step="1" 
-                onkeydown="return event.keyCode !== 190" 
-                @input="validatePositiveInteger($event, 'height')" 
-                v-model.number="calc.height"
-                :class="{ 'error': calc.errors.height }"
-                required 
-              />
-              <span v-if="calc.errors.height" class="error-message">{{ calc.errors.height }}</span>
-            </label>
-          <label>
-              Type af hæk
-              <select v-model="calc.type" required class="calc-select">
-                <option value="single">Enkeltsidet hæk</option>
-                <option value="double">Dobbeltsidet hæk</option>
-              </select>
-            </label>
-            <label class="checkbox-label">
-              <span>Bortkørsel af affald</span>
-              <input type="checkbox" v-model="calc.wasteRemoval" />
-            </label>
-            <div class="calc-guide-link">
-              <a href="#" @click.prevent="showGuide = true">Hvordan måler jeg min hæk?</a>
+      <div class="hero-content-container">
+        <div class="hero-row">
+          <div class="hero-content">
+            <h1>Velkommen til MN hækklipning</h1>
+            <div class="hero-text">
+              <p>Hos MN hækklipning sørger vi for professionel hækklipning og beskæring af din hæk. Vi er din lokale hækklipningsekspert i Syd- og Midtjylland.</p>
+              <ul class="hero-benefits">
+                <li>✓ Præcis og professionel klipning</li>
+                <li>✓ Fleksible tidspunkter</li>
+                <li>✓ Konkurrencedygtige priser</li>
+                <li>✓ Grundig oprydning efter arbejdet</li>
+              </ul>
+              <p>Vi kører i Kolding og omegn - klar til at give din hæk den perfekte finish!</p>
             </div>
-            <div class="calc-result">
-              <span>Estimeret pris (inkl. moms):</span>
-              <span class="price">{{ formattedPrice }}</span>
+            <div class="hero-cta-wrapper">
+              <button class="hero-cta-btn" @click="scrollTo('contact')">Kontakt os</button>
             </div>
-            <button type="submit" class="cta-btn">Få tilbud nu</button>
-          </form>
+          </div>
+          <div class="calculator-card">
+            <h2>Beregn din pris</h2>
+            <form class="calc-form" @submit.prevent="scrollToContact">
+              <label>
+                Hvor mange meter hæk?
+                <input 
+                  type="number" 
+                  min="1" 
+                  step="1" 
+                  onkeydown="return event.keyCode !== 190" 
+                  @input="validatePositiveInteger($event, 'meter')" 
+                  v-model.number="calc.meter"
+                  :class="{ 'error': calc.errors.meter }"
+                  required 
+                />
+                <span v-if="calc.errors.meter" class="error-message">{{ calc.errors.meter }}</span>
+              </label>
+              
+              <label>
+                Højde på hækken (cm)
+                <input 
+                  type="number" 
+                  min="50" 
+                  max="250" 
+                  step="1" 
+                  onkeydown="return event.keyCode !== 190" 
+                  @input="validatePositiveInteger($event, 'height')" 
+                  v-model.number="calc.height"
+                  :class="{ 'error': calc.errors.height }"
+                  required 
+                />
+                <span v-if="calc.errors.height" class="error-message">{{ calc.errors.height }}</span>
+              </label>
+            <label>
+                Type af hæk
+                <select v-model="calc.type" required class="calc-select">
+                  <option value="single">Enkeltsidet hæk</option>
+                  <option value="double">Dobbeltsidet hæk</option>
+                </select>
+              </label>
+              <label class="checkbox-label">
+                <span>Bortkørsel af affald</span>
+                <input type="checkbox" v-model="calc.wasteRemoval" />
+              </label>
+              <div class="calc-guide-link">
+                <a href="#" @click.prevent="showGuide = true">Hvordan måler jeg min hæk?</a>
+              </div>
+              <div class="calc-result">
+                <span>Estimeret pris (inkl. moms):</span>
+                <span class="price">{{ formattedPrice }}</span>
+              </div>
+              <button type="submit" class="cta-btn">Få tilbud nu</button>
+            </form>
+          </div>
         </div>
       </div>
       <div class="scroll-indicator" @click="scrollTo('services')">
@@ -508,14 +510,16 @@ export default {
 }
 @media (max-width: 900px) {
   .main-nav {
-    height: 90px;
+    height: auto;
+    min-height: 60px;
     flex-direction: column;
-    padding: 0.7rem 1vw;
+    padding: 0.5rem 1vw;
   }
   .nav-links {
-    gap: 0.7rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0.5rem 0;
   }
   .nav-links li a {
     font-size: 0.95rem;
@@ -523,16 +527,17 @@ export default {
   }
   .hero {
     height: auto;
-    min-height: auto;
+    min-height: calc(100vh - 90px);
     padding-bottom: 3rem;
   }
   .hero-overlay.hero-row {
+    position: relative;
     height: auto;
     min-height: auto;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    padding: 1.2rem 1rem 2rem 1rem;
+    gap: 1rem;
+    padding: 1rem 1rem 4rem 1rem;
     width: 100%;
     box-sizing: border-box;
   }
@@ -541,18 +546,34 @@ export default {
     max-width: 100%;
     padding: 0.5rem;
     margin: 0;
+    text-align: center;
+  }
+  .hero-text {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+  }
+  .hero-benefits {
+    display: inline-block;
+    text-align: left;
+    margin: 1rem auto;
+  }
+  .hero-benefits li {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    margin-bottom: 0.4rem;
+  }
+  .hero-cta-wrapper {
+    justify-content: center;
   }
   .calculator-card {
     width: 100%;
-    max-width: 100%;
-    margin: 1rem auto;
+    max-width: 400px;
+    margin: 0 auto 1rem auto;
     padding: 1rem;
   }
   .scroll-indicator {
-    bottom: 10px;
+    bottom: 15px;
   }
   .hero h1 {
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-size: clamp(1.6rem, 5.5vw, 2.0rem);
   }
   .hero-text {
     font-size: clamp(0.9rem, 4vw, 1.2rem);
@@ -562,54 +583,155 @@ export default {
   }
 }
 @media (max-width: 600px) {
+  .main-nav {
+    padding: 0.5rem 1vw;
+  }
+  .nav-links {
+    width: 100%;
+    gap: 0.3rem;
+  }
+  .nav-links li a {
+    font-size: 0.85rem;
+    padding: 0.2rem 0.3rem;
+  }
+  .hero {
+    min-height: calc(100vh - 60px);
+  }
   .hero-overlay.hero-row {
-    padding: 1rem 0.5rem;
+    padding: 0.8rem 0.8rem 3.5rem 0.8rem;
+    gap: 0.8rem;
   }
   .hero-content {
-    padding: 0.5rem;
+    padding: 0.2rem;
   }
   .calculator-card {
-    padding: 1rem 0.5rem;
+    padding: 0.8rem 0.5rem;
+    width: auto;
+    max-width: none;
+  }
+  .calc-form {
+    gap: 0.6rem;
+  }
+  .calc-form label {
+    font-size: 0.95rem;
   }
   .calc-form input[type="number"],
   .calc-select {
     width: 100%;
-    font-size: 16px; /* Prevents iOS zoom on focus */
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+  }
+  .calc-form .checkbox-label {
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .calc-result {
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+  }
+  .cta-btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 1rem;
+  }
+  .hero-cta-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .about {
+    padding: 2rem 1rem;
+  }
+  .about blockquote {
+    font-size: 1.1rem;
+  }
+  .testimonials {
+    padding: 0 0.5rem;
+  }
+  .testimonials-box {
+    padding: 1.5rem 0.8rem;
+  }
+  .contact-box {
+    padding: 1rem;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+  .profile-card {
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+  .profile-image {
+    width: 56px;
+    height: 56px;
+  }
+  .profile-info h3 {
+    font-size: 1.1rem;
+  }
+  .profile-phone, .contact-email a {
+    font-size: 0.95rem;
+  }
+  .contact-email {
+    padding: 1rem 1.5rem;
   }
 }
 .hero {
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   position: relative;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-bottom: 3rem;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  padding-bottom: 80px;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
-.hero-overlay.hero-row {
-  width: 100%;
-  height: 100%;
+
+/* Apply gradient overlay using a pseudo-element */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(120deg, 
     rgba(46,107,61,0.9) 0%,
     rgba(46,107,61,0.85) 40%,
     rgba(130,179,102,0.8) 100%
   );
+  z-index: 1;
+}
+
+.hero-content-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2.5rem 1rem 4rem 1rem;
+  box-sizing: border-box;
+}
+
+.hero-row {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   gap: 3rem;
-  position: absolute;
-  padding: 2.5rem 1rem 4rem 1rem;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
 }
+
 .hero-content {
   position: relative;
   z-index: 2;
@@ -621,27 +743,32 @@ export default {
   padding: 1rem;
   box-sizing: border-box;
 }
+
 .hero h1 {
   font-family: 'Poppins', 'Nunito', Arial, sans-serif;
-  font-size: 2.4rem;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   color: var(--white);
 }
+
 .hero-text {
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   line-height: 1.6;
   flex-grow: 1;
 }
+
 .hero-text p {
   margin-bottom: 1rem;
 }
+
 .hero-cta-wrapper {
   display: flex;
   justify-content: flex-start;
   padding-bottom: 1.5rem;
 }
+
 .hero-cta-btn {
   background: var(--leaf-green);
   color: var(--white);
