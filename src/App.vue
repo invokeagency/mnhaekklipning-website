@@ -539,33 +539,49 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.2rem 0.5rem 2rem 0.5rem;
+    padding: 1.2rem 1rem 2rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   .hero-content {
-    width: 90%;
+    width: 100%;
+    max-width: 100%;
     padding: 0.5rem;
+    margin: 0;
   }
   .calculator-card {
-    width: 90%;
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem auto;
     padding: 1rem;
   }
   .scroll-indicator {
     bottom: 10px;
   }
-}
-@media (max-width: 600px) {
   .hero h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
   }
   .hero-text {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
   }
   .hero-benefits li {
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
   }
-  .scroll-text {
-    font-size: 0.95rem;
+}
+@media (max-width: 600px) {
+  .hero-overlay.hero-row {
+    padding: 1rem 0.5rem;
+  }
+  .hero-content {
+    padding: 0.5rem;
+  }
+  .calculator-card {
+    padding: 1rem 0.5rem;
+  }
+  .calc-form input[type="number"],
+  .calc-select {
+    width: 100%;
+    font-size: 16px; /* Prevents iOS zoom on focus */
   }
 }
 .hero {
@@ -596,9 +612,11 @@ export default {
 .hero-content {
   text-align: left;
   color: var(--white);
+  width: 100%;
   max-width: 500px;
-  flex: 1 1 340px;
+  flex: 1 1 auto;
   padding: 1rem;
+  box-sizing: border-box;
 }
 .hero h1 {
   font-family: 'Poppins', 'Nunito', Arial, sans-serif;
@@ -644,8 +662,8 @@ export default {
   border-radius: 22px;
   box-shadow: 0 4px 24px rgba(46,107,61,0.13);
   padding: 1.5rem;
-  max-width: 350px;
   width: 100%;
+  max-width: 350px;
   position: relative;
   z-index: 10;
   margin-top: 1rem;
@@ -962,17 +980,17 @@ export default {
 .contact-box {
   background: var(--white);
   border-radius: 24px;
-  padding: 2rem;
+  padding: 2rem 1rem;
   box-shadow: 0 2px 12px rgba(46,107,61,0.06);
-  max-width: 100%;
-  width: fit-content;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  align-items: stretch;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1026,9 +1044,10 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 85%;
+  width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 .profile-card {
   background: var(--light-grey);
@@ -1089,7 +1108,7 @@ export default {
   background: var(--light-grey);
   border-radius: 16px;
   padding: 1.2rem 2rem;
-  width: 85%;
+  width: 100%;
   max-width: 400px;
   margin: 0 auto;
   display: flex;
