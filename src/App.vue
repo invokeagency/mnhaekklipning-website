@@ -44,12 +44,33 @@
           <form class="calc-form" @submit.prevent="scrollToContact">
             <label>
               Hvor mange meter hæk?
-              <input type="number" min="1" step="1" onkeydown="return event.keyCode !== 190" @input="validatePositiveInteger($event, 'meter')" v-model.number="calc.meter" required />
+              <input 
+                type="number" 
+                min="1" 
+                step="1" 
+                onkeydown="return event.keyCode !== 190" 
+                @input="validatePositiveInteger($event, 'meter')" 
+                v-model.number="calc.meter"
+                :class="{ 'error': calc.errors.meter }"
+                required 
+              />
+              <span v-if="calc.errors.meter" class="error-message">{{ calc.errors.meter }}</span>
             </label>
             
             <label>
               Højde på hækken (cm)
-              <input type="number" min="50" max="250" step="1" onkeydown="return event.keyCode !== 190" @input="validatePositiveInteger($event, 'height')" v-model.number="calc.height" required />
+              <input 
+                type="number" 
+                min="50" 
+                max="250" 
+                step="1" 
+                onkeydown="return event.keyCode !== 190" 
+                @input="validatePositiveInteger($event, 'height')" 
+                v-model.number="calc.height"
+                :class="{ 'error': calc.errors.height }"
+                required 
+              />
+              <span v-if="calc.errors.height" class="error-message">{{ calc.errors.height }}</span>
             </label>
           <label>
               Type af hæk
@@ -261,7 +282,11 @@ export default {
         meter: 10,
         height: 150,
         type: 'single',
-        wasteRemoval: true
+        wasteRemoval: true,
+        errors: {
+          meter: '',
+          height: ''
+        }
       },
       showGuide: false
     }
@@ -311,9 +336,23 @@ export default {
     },
     validatePositiveInteger(event, field) {
       const value = event.target.value;
-      // Remove any decimal points and non-numeric characters
-      const sanitizedValue = Math.floor(Math.abs(Number(value)));
-      if (sanitizedValue !== Number(value)) {
+      // Reset error first
+      this.calc.errors[field] = '';
+      
+      if (isNaN(value) || value === '') {
+        this.calc.errors[field] = 'Venligst indtast kun tal';
+        this.calc[field] = '';
+        return;
+      }
+      const numValue = Number(value);
+      if (numValue < 0) {
+        this.calc.errors[field] = 'Negative tal er ikke gyldige';
+        this.calc[field] = '';
+        return;
+      }
+      // Remove any decimal points
+      const sanitizedValue = Math.floor(numValue);
+      if (sanitizedValue !== numValue) {
         this.calc[field] = sanitizedValue;
       }
     },
@@ -1260,5 +1299,18 @@ export default {
     max-width: 95%;
     padding: 1.2rem;
   }
+}
+
+.calc-form input[type="number"].error {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  display: block;
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 </style>
