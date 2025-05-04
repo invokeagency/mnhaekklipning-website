@@ -268,8 +268,10 @@ export default {
   },
   computed: {
     backgroundImageUrl() {
-      // Use relative path for local development
-      return process.env.BASE_URL + 'img/haek1.jpg';
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? '/mnhaekklipning-website' 
+        : '';
+      return `${baseUrl}/img/haek1.jpg`;
     },
     formattedPrice() {
       if (!this.calc.meter || !this.calc.height) return '-';
