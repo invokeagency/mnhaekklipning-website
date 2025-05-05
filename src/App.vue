@@ -542,7 +542,7 @@ export default {
   --white: #fff;
   --light-grey: #f4f4f4;
   font-size: 15px; /* Mobile base font size */
-  /* --nav-height removed */
+  --nav-height: 50px; /* Restore nav height variable */
 }
 
 *, *::before, *::after {
@@ -576,25 +576,24 @@ body {
 
 /* --- Navigation (Mobile First) --- */
 .main-nav {
-  /* Position sticky removed, now static by default */
-  background: var(--white);
-  box-shadow: 0 2px 8px rgba(46, 107, 61, 0.07);
+  /* Restore sticky styles */
+  position: sticky;
+  top: 0;
+  z-index: 1000; 
+
+  /* Restore original background and shadow */
+  background: var(--white); 
+  box-shadow: 0 2px 8px rgba(46, 107, 61, 0.07); 
+
   display: flex;
   flex-direction: column; /* Stack logo and links */
   align-items: center;
   padding: 0.6rem 1rem;
-  min-height: 50px;
+  min-height: var(--nav-height);
   gap: 0.5rem;
 }
 
 .nav-logo {
-  /* Remove old text styles */
-  /* font-family: 'Poppins', 'Nunito', Arial, sans-serif; */
-  /* font-weight: 900; */
-  /* font-size: 1.2rem; */ 
-  /* color: var(--forest-green); */
-  /* letter-spacing: 1px; */
-
   /* Add styles for the image logo */
   height: 35px; /* Adjust height as needed for mobile */
   width: auto;
@@ -635,7 +634,6 @@ body {
 @media (min-width: 601px) {
   :root {
     font-size: 16px; /* Restore base font size */
-    /* --nav-height removed */
   }
 
   .main-nav {
@@ -668,12 +666,10 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%; 
-  flex-grow: 1; /* Let hero fill remaining space */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-  /* Padding-top removed, handled by content container */
 }
 
 /* Gradient Overlay */
@@ -692,7 +688,8 @@ body {
   display: flex;
   flex-direction: column; /* Default stack */
   align-items: center;
-  padding: 1.5rem 1rem 1.5rem 1rem; /* Reduced bottom padding */
+  /* Reduce bottom padding to minimum */
+  padding: 0.5rem 1rem 0.2rem 1rem; 
   flex-grow: 1; /* Make content container fill hero height */
   gap: 1.5rem; 
 }
@@ -774,13 +771,13 @@ body {
   color: var(--white);
   cursor: pointer;
   opacity: 0.8;
-  z-index: 2; /* Still need to be clickable over gradient */
+  z-index: 2; 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 1rem; /* Space above indicator */
-  margin-bottom: 1rem; /* Space below indicator */
+  align-items: center; /* Center internal text/svg */
+  gap: 0.1rem; /* Reduce internal gap */
+  /* Minimize vertical margin */
+  margin: 0.2rem auto 0.2rem auto; /* top/bottom reduced further */
   transition: opacity 0.3s;
 }
 .scroll-text {
@@ -789,7 +786,11 @@ body {
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
   white-space: nowrap;
 }
-.scroll-indicator svg { width: 30px; height: 30px; }
+/* Reduce size of the SVG arrow */
+.scroll-indicator svg {
+  width: 30px; 
+  height: 30px; 
+}
 .scroll-indicator:hover { opacity: 1; }
 
 /* --- Calculator Card & Form (Mobile First) --- */
@@ -1037,8 +1038,8 @@ body {
 
 /* Tablet and Medium Screens */
 @media (min-width: 601px) {
-  /* No change needed for .hero min-height, flex-grow handles it */
-  .hero-content-container { padding: 2rem 1.5rem 2rem 1.5rem; /* Reduced bottom padding */ }
+  /* Reduce bottom padding to minimum */
+  .hero-content-container { padding: 0.75rem 1.5rem 0.5rem 1.5rem; }
   .hero-row { max-width: 600px; }
   .calculator-card { padding: 1.5rem; }
   .scroll-indicator { margin-top: 1.5rem; margin-bottom: 1.5rem; }
@@ -1050,7 +1051,8 @@ body {
 
    .hero-content-container {
      align-items: center; 
-     padding: 3rem 2rem 3rem 2rem; /* Reduced bottom padding */
+     /* Reduce bottom padding to minimum */
+     padding: 1rem 2rem 0.75rem 2rem; 
    }
    .hero-row {
      flex-direction: row; /* << SWITCH TO ROW */
