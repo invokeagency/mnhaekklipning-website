@@ -44,67 +44,70 @@
             <h2>Beregn din pris</h2>
             <form class="calc-form" @submit.prevent="scrollToContact">
 
-              <!-- Loop through each hedge -->
-              <div v-for="(hedge, index) in hedges" :key="hedge.id" class="hedge-group">
-                
-                <!-- Add a visual separator and title for multiple hedges -->
-                <h4 v-if="hedges.length > 1">Hæk {{ index + 1 }}</h4>
-                
-                <label>
-                  Hvor mange meter hæk?
-                  <input 
-                    type="number" 
-                    min="1" 
-                    step="1" 
-                    onkeydown="return event.keyCode !== 190" 
-                    @input="validatePositiveInteger($event, hedge, 'meter')" 
-                    v-model.number="hedge.meter"
-                    :class="{ 'error': hedge.errors.meter }"
-                    required 
-                  />
-                  <span v-if="hedge.errors.meter" class="error-message">{{ hedge.errors.meter }}</span>
-                </label>
-                
-                <label>
-                  Højde på hækken (cm)
-                  <input 
-                    type="number" 
-                    min="50" 
-                    max="250" 
-                    step="1" 
-                    onkeydown="return event.keyCode !== 190" 
-                    @input="validatePositiveInteger($event, hedge, 'height')" 
-                    v-model.number="hedge.height"
-                    :class="{ 'error': hedge.errors.height }"
-                    required 
-                  />
-                  <span v-if="hedge.errors.height" class="error-message">{{ hedge.errors.height }}</span>
-                </label>
-                
-                <label>
-                  Type af hæk
-                  <select v-model="hedge.type" required class="calc-select">
-                    <option value="single">Enkeltsidet klip</option>
-                    <option value="double">Dobbeltsidet klip</option>
-                  </select>
-                </label>
-                
-                <label class="checkbox-label">
-                  <span>Bortkørsel af affald</span>
-                  <input type="checkbox" v-model="hedge.wasteRemoval" />
-                </label>
+              <!-- Container for scrollable hedge list -->
+              <div class="hedge-list-container" ref="hedgeListContainer">
+                <!-- Loop through each hedge -->
+                <div v-for="(hedge, index) in hedges" :key="hedge.id" class="hedge-group">
+                  
+                  <!-- Add a visual separator and title for multiple hedges -->
+                  <h4 v-if="hedges.length > 1">Hæk {{ index + 1 }}</h4>
+                  
+                  <label>
+                    Hvor mange meter hæk?
+                    <input 
+                      type="number" 
+                      min="1" 
+                      step="1" 
+                      onkeydown="return event.keyCode !== 190" 
+                      @input="validatePositiveInteger($event, hedge, 'meter')" 
+                      v-model.number="hedge.meter"
+                      :class="{ 'error': hedge.errors.meter }"
+                      required 
+                    />
+                    <span v-if="hedge.errors.meter" class="error-message">{{ hedge.errors.meter }}</span>
+                  </label>
+                  
+                  <label>
+                    Højde på hækken (cm)
+                    <input 
+                      type="number" 
+                      min="50" 
+                      max="250" 
+                      step="1" 
+                      onkeydown="return event.keyCode !== 190" 
+                      @input="validatePositiveInteger($event, hedge, 'height')" 
+                      v-model.number="hedge.height"
+                      :class="{ 'error': hedge.errors.height }"
+                      required 
+                    />
+                    <span v-if="hedge.errors.height" class="error-message">{{ hedge.errors.height }}</span>
+                  </label>
+                  
+                  <label>
+                    Type af hæk
+                    <select v-model="hedge.type" required class="calc-select">
+                      <option value="single">Enkeltsidet klip</option>
+                      <option value="double">Dobbeltsidet klip</option>
+                    </select>
+                  </label>
+                  
+                  <label class="checkbox-label">
+                    <span>Bortkørsel af affald</span>
+                    <input type="checkbox" v-model="hedge.wasteRemoval" />
+                  </label>
 
-                <!-- Remove Hedge Button (only show if more than one hedge exists) -->
-                <button 
-                  v-if="hedges.length > 1" 
-                  type="button" 
-                  @click="removeHedge(hedge.id)" 
-                  class="remove-hedge-btn"
-                >
-                  Fjern Hæk {{ index + 1 }}
-                </button>
+                  <!-- Remove Hedge Button (only show if more than one hedge exists) -->
+                  <button 
+                    v-if="hedges.length > 1" 
+                    type="button" 
+                    @click="removeHedge(hedge.id)" 
+                    class="remove-hedge-btn"
+                  >
+                    Fjern Hæk
+                  </button>
 
-              </div> <!-- End hedge-group -->
+                </div> <!-- End hedge-group -->
+              </div> <!-- End hedge-list-container -->
 
               <!-- Add Hedge Button -->
               <button type="button" @click="addHedge" class="add-hedge-btn">+ Tilføj endnu en hæk</button>
@@ -421,6 +424,14 @@ export default {
         wasteRemoval: true, 
         errors: { meter: '', height: '' } 
       });
+
+      // Scroll to the bottom of the hedge list after DOM update
+      this.$nextTick(() => {
+        const container = this.$refs.hedgeListContainer;
+        if (container) {
+          container.scrollTop = container.scrollHeight;
+        }
+      });
     },
     removeHedge(idToRemove) {
       // Prevent removing the last hedge
@@ -689,7 +700,7 @@ body {
   flex-direction: column; /* Default stack */
   align-items: center;
   /* Reduce bottom padding to minimum */
-  padding: 0.5rem 1rem 0.2rem 1rem; 
+  padding: 0.5rem 1rem 0rem 1rem; /* Removed bottom padding */
   flex-grow: 1; /* Make content container fill hero height */
   gap: 1.5rem; 
 }
@@ -776,8 +787,8 @@ body {
   flex-direction: column;
   align-items: center; /* Center internal text/svg */
   gap: 0.1rem; /* Reduce internal gap */
-  /* Minimize vertical margin */
-  margin: 0.2rem auto 0.2rem auto; /* top/bottom reduced further */
+  /* Minimize vertical margin - Increased bottom margin */
+  margin: 0.2rem auto 1.5rem auto; /* Increased bottom margin */
   transition: opacity 0.3s;
 }
 .scroll-text {
@@ -801,8 +812,10 @@ body {
   padding: 1.2rem 1rem;
   width: 100%;
   /* Max-width is handled by .hero-row */
+  /* Make card a flex container */
+  display: flex;
   flex-direction: column;
-  gap: 0.9rem; /* Slightly increased gap */
+  overflow: hidden;
 }
 
 .calculator-card h2 {
@@ -1039,7 +1052,7 @@ body {
 /* Tablet and Medium Screens */
 @media (min-width: 601px) {
   /* Reduce bottom padding to minimum */
-  .hero-content-container { padding: 0.75rem 1.5rem 0.5rem 1.5rem; }
+  .hero-content-container { padding: 0.75rem 1.5rem 0.2rem 1.5rem; } /* Reduced bottom padding */
   .hero-row { max-width: 600px; }
   .calculator-card { padding: 1.5rem; }
   .scroll-indicator { margin-top: 1.5rem; margin-bottom: 1.5rem; }
@@ -1052,7 +1065,7 @@ body {
    .hero-content-container {
      align-items: center; 
      /* Reduce bottom padding to minimum */
-     padding: 1rem 2rem 0.75rem 2rem; 
+     padding: 1rem 2rem 0.4rem 2rem; /* Reduced bottom padding */
    }
    .hero-row {
      flex-direction: row; /* << SWITCH TO ROW */
@@ -1085,7 +1098,6 @@ body {
      gap: 2rem;
    }
    .feature-item { padding: 1.5rem; }
-   .scroll-indicator { margin-top: 2rem; margin-bottom: 2rem; }
 }
 
 /* --- Utility --- */
@@ -1485,7 +1497,7 @@ body {
   border: 1px solid var(--lawn-green); /* Light border */
   border-radius: 10px;
   padding: 1rem;
-  margin-bottom: 1rem; /* Space between hedge groups */
+  margin-bottom: 1.5rem; /* Increased space between hedge groups */
   background-color: #f8fdf8; /* Very light green background */
   position: relative; /* For positioning the remove button if needed */
 }
@@ -1513,7 +1525,6 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 0.5rem; /* Space above button */
   text-align: center;
   width: 100%;
 }
@@ -1540,11 +1551,10 @@ body {
 /* --- Re-add Container Styles --- */
 /* Container for the list of hedges, enabling scroll */
 .hedge-list-container {
-  max-height: 350px; 
+  height: 310px; 
   overflow-y: auto; /* Default behavior */
   padding: 0 0.5rem; /* Vertical padding 0, Horizontal padding for scrollbar */
   margin-right: -0.5rem; /* Compensate padding for layout */
-  margin-bottom: 0.5rem; /* Space below the container */
   position: relative; 
   transition: box-shadow 0.2s ease-in-out;
 }
