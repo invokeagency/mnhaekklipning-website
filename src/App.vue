@@ -1537,4 +1537,36 @@ body {
   color: #b02a37; /* Darker red text */
 }
 
+/* --- Re-add Container Styles --- */
+/* Container for the list of hedges, enabling scroll */
+.hedge-list-container {
+  max-height: 350px; 
+  overflow-y: auto; /* Default behavior */
+  padding: 0 0.5rem; /* Vertical padding 0, Horizontal padding for scrollbar */
+  margin-right: -0.5rem; /* Compensate padding for layout */
+  margin-bottom: 0.5rem; /* Space below the container */
+  position: relative; 
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Styles for the inner shadows - ONLY apply when scrollbar is NOT forced */
+.hedge-list-container.show-top-shadow:not(.force-scroll) {
+  box-shadow: inset 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+.hedge-list-container.show-bottom-shadow:not(.force-scroll) {
+  box-shadow: inset 0 -6px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+/* Combine shadows if both are active - ONLY apply when scrollbar is NOT forced */
+.hedge-list-container.show-top-shadow.show-bottom-shadow:not(.force-scroll) {
+  box-shadow: inset 0 6px 6px -6px rgba(0, 0, 0, 0.2), inset 0 -6px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+/* Force scrollbar visibility when more than one hedge */
+.hedge-list-container.force-scroll {
+  overflow-y: scroll;
+}
+/* --- End Container Styles --- */
+
 </style>
