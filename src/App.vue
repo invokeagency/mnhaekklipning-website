@@ -7,7 +7,6 @@
         <li><a href="#hero">Forside</a></li>
         <li><a href="#services">Ydelser</a></li>
         <li><a href="#about">Om os</a></li>
-        <li><a href="#testimonials">Kundeudtalelser</a></li>
         <li><a href="#contact">Kontakt</a></li>
       </ul>
     </nav>
