@@ -34,6 +34,8 @@
               </ul>
               <p>Vi kører i Kolding og omegn - klar til at give din hæk den perfekte finish!</p>
             </div>
+            <!-- Added paragraph about service deduction -->
+            <p class="service-deduction-info">💡 Husk! Du kan trække vores arbejde fra i servicefradraget – det gør din hæk endnu grønnere for pengepungen! 🌿</p>
             <div class="hero-cta-wrapper">
               <!-- Basic button, functionality can be added later -->
               <button class="hero-cta-btn" @click="scrollTo('contact')">Kontakt os</button> 
