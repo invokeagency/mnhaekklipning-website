@@ -2,7 +2,7 @@
   <div class="mnhaek-landing">
     <!-- Navigation Bar -->
     <nav class="main-nav">
-      <div class="nav-logo">MN Hækklipning</div>
+      <img src="/img/logo_big_2.png" alt="MN Hækklipning Logo" class="nav-logo">
       <ul class="nav-links">
         <li><a href="#hero">Forside</a></li>
         <li><a href="#services">Ydelser</a></li>
@@ -583,11 +583,18 @@ body {
 }
 
 .nav-logo {
-  font-family: 'Poppins', 'Nunito', Arial, sans-serif;
-  font-weight: 900;
-  font-size: 1.2rem; /* Slightly smaller on mobile */
-  color: var(--forest-green);
-  letter-spacing: 1px;
+  /* Remove old text styles */
+  /* font-family: 'Poppins', 'Nunito', Arial, sans-serif; */
+  /* font-weight: 900; */
+  /* font-size: 1.2rem; */ 
+  /* color: var(--forest-green); */
+  /* letter-spacing: 1px; */
+
+  /* Add styles for the image logo */
+  height: 35px; /* Adjust height as needed for mobile */
+  width: auto;
+  display: block; /* Prevents extra space below image */
+  object-fit: contain; /* Ensure aspect ratio is maintained */
 }
 
 .nav-links {
@@ -647,6 +654,7 @@ body {
    .main-nav { padding: 0.7rem 2rem; }
    .nav-links { gap: 1rem; }
    .nav-links li a { font-size: 1rem; padding: 0.3rem 0.7rem; }
+   .nav-logo { height: 40px; } /* Increase height slightly for larger screens */
 }
 
 /* --- Hero Section (Mobile First) --- */
