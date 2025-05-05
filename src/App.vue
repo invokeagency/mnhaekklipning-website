@@ -25,7 +25,7 @@
           <div class="hero-content">
             <h1>Velkommen til MN hækklipning</h1>
             <div class="hero-text">
-              <p>Hos MN hækklipning sørger vi for professionel hækklipning og beskæring af din hæk. Vi er din lokale hækklipningsekspert i Syd- og Midtjylland.</p>
+              <p>Hos MN hækklipning sørger vi for professionel hækklipning og beskæring af din hæk. Vi er din lokale hækklipningsekspert i Region Syddanmark.</p>
               <ul class="hero-benefits">
                 <li>✓ Præcis og professionel klipning</li>
                 <li>✓ Fleksible tidspunkter</li>
@@ -43,47 +43,72 @@
           <div class="calculator-card">
             <h2>Beregn din pris</h2>
             <form class="calc-form" @submit.prevent="scrollToContact">
-              <label>
-                Hvor mange meter hæk?
-                <input 
-                  type="number" 
-                  min="1" 
-                  step="1" 
-                  onkeydown="return event.keyCode !== 190" 
-                  @input="validatePositiveInteger($event, 'meter')" 
-                  v-model.number="calc.meter"
-                  :class="{ 'error': calc.errors.meter }"
-                  required 
-                />
-                <span v-if="calc.errors.meter" class="error-message">{{ calc.errors.meter }}</span>
-              </label>
-              
-              <label>
-                Højde på hækken (cm)
-                <input 
-                  type="number" 
-                  min="50" 
-                  max="250" 
-                  step="1" 
-                  onkeydown="return event.keyCode !== 190" 
-                  @input="validatePositiveInteger($event, 'height')" 
-                  v-model.number="calc.height"
-                  :class="{ 'error': calc.errors.height }"
-                  required 
-                />
-                <span v-if="calc.errors.height" class="error-message">{{ calc.errors.height }}</span>
-              </label>
-              <label>
-                Type af hæk
-                <select v-model="calc.type" required class="calc-select">
-                  <option value="single">Enkeltsidet hæk</option>
-                  <option value="double">Dobbeltsidet hæk</option>
-                </select>
-              </label>
-              <label class="checkbox-label">
-                <span>Bortkørsel af affald</span>
-                <input type="checkbox" v-model="calc.wasteRemoval" />
-              </label>
+
+              <!-- Loop through each hedge -->
+              <div v-for="(hedge, index) in hedges" :key="hedge.id" class="hedge-group">
+                
+                <!-- Add a visual separator and title for multiple hedges -->
+                <h4 v-if="hedges.length > 1">Hæk {{ index + 1 }}</h4>
+                
+                <label>
+                  Hvor mange meter hæk?
+                  <input 
+                    type="number" 
+                    min="1" 
+                    step="1" 
+                    onkeydown="return event.keyCode !== 190" 
+                    @input="validatePositiveInteger($event, hedge, 'meter')" 
+                    v-model.number="hedge.meter"
+                    :class="{ 'error': hedge.errors.meter }"
+                    required 
+                  />
+                  <span v-if="hedge.errors.meter" class="error-message">{{ hedge.errors.meter }}</span>
+                </label>
+                
+                <label>
+                  Højde på hækken (cm)
+                  <input 
+                    type="number" 
+                    min="50" 
+                    max="250" 
+                    step="1" 
+                    onkeydown="return event.keyCode !== 190" 
+                    @input="validatePositiveInteger($event, hedge, 'height')" 
+                    v-model.number="hedge.height"
+                    :class="{ 'error': hedge.errors.height }"
+                    required 
+                  />
+                  <span v-if="hedge.errors.height" class="error-message">{{ hedge.errors.height }}</span>
+                </label>
+                
+                <label>
+                  Type af hæk
+                  <select v-model="hedge.type" required class="calc-select">
+                    <option value="single">Enkeltsidet klip</option>
+                    <option value="double">Dobbeltsidet klip</option>
+                  </select>
+                </label>
+                
+                <label class="checkbox-label">
+                  <span>Bortkørsel af affald</span>
+                  <input type="checkbox" v-model="hedge.wasteRemoval" />
+                </label>
+
+                <!-- Remove Hedge Button (only show if more than one hedge exists) -->
+                <button 
+                  v-if="hedges.length > 1" 
+                  type="button" 
+                  @click="removeHedge(hedge.id)" 
+                  class="remove-hedge-btn"
+                >
+                  Fjern Hæk {{ index + 1 }}
+                </button>
+
+              </div> <!-- End hedge-group -->
+
+              <!-- Add Hedge Button -->
+              <button type="button" @click="addHedge" class="add-hedge-btn">+ Tilføj endnu en hæk</button>
+
               <div class="calc-guide-link">
                 <a href="#" @click.prevent="showGuide = true">Hvordan måler jeg min hæk?</a>
               </div>
@@ -118,7 +143,7 @@
           
           <div class="feature-item">
             <h3>Klipning i højden</h3>
-            <p>Med det rette udstyr kan vi også håndtere høje hække. Vi har erfaring med hække op til 4 meter og sørger for sikker og præcis klipning, uanset højden.</p>
+            <p>Med det rette udstyr kan vi også håndtere høje hække og sørger for sikker og præcis klipning, uanset højden.</p>
           </div>
 
           <div class="feature-item">
@@ -150,12 +175,12 @@
       <div class="about-content container">
         <h2 class="section-heading">Om MN Hækklipning</h2>
         <p>
-          Vi er to unge gutter, der brænder for at drive virksomhed og skabe gode resultater for vores kunder. Med en kombination af iværksætterånd og sans for detaljer, sørger vi for at din hæk får den bedste behandling.
+          MN Hækklipning er drevet af to engagerede ildsjæle med en stærk passion for god kundeservice og høj kvalitet. Vi kombinerer iværksætterånd med en skarp sans for detaljen og sikrer, at hver hæk vi klipper, får en behandling i topklasse.
         </p>
         <p>
-          Vores mål er at levere professionelt arbejde til konkurrencedygtige priser, og vi går op i at efterlade et pænt og ryddeligt resultat hver gang.
+          Vi stræber altid efter at levere et professionelt stykke arbejde til konkurrencedygtige priser – og vi forlader aldrig en opgave uden at sikre, at haven står pæn og ordentlig.
         </p>
-        <blockquote>"Vi klipper, du slipper"</blockquote>
+        <blockquote>"Vi klipper, du slipper."</blockquote>
       </div>
     </section>
 
@@ -285,7 +310,7 @@
       <div class="footer-bottom">
         <p>© {{ new Date().getFullYear() }} MN Hækklipning ApS</p>
         <p>CVR: 45556107</p>
-        <p>Lindbæksvej 6, Kolding</p>
+        <p>Kolding</p>
       </div>
     </footer>
 
@@ -298,8 +323,13 @@ import emailjs from '@emailjs/browser';
 export default {
   name: 'LandingPage',
   data() {
+    // Unique ID counter for new hedges
+    let hedgeIdCounter = 0; 
     return {
-      calc: { meter: 10, height: 150, type: 'single', wasteRemoval: true, errors: { meter: '', height: '' } },
+      hedgeIdCounter: 1, // Start counter at 1, initialized hedge is 0
+      hedges: [
+        { id: hedgeIdCounter++, meter: 10, height: 150, type: 'single', wasteRemoval: true, errors: { meter: '', height: '' } }
+      ],
       showGuide: false,
       form: {
         name: '',
@@ -322,31 +352,82 @@ export default {
       return `${baseUrl}img/haek1.jpg`;
     },
     formattedPrice() {
-      if (!this.calc.meter || !this.calc.height) return '-';
+      let totalPrice = 0;
+      let contactRequired = false;
 
-      let pricePerMeter;
-      const height = this.calc.height;
-      const isSingle = this.calc.type === 'single';
-      const withWaste = this.calc.wasteRemoval;
+      // Iterate over each hedge in the list
+      for (const hedge of this.hedges) {
+        if (!hedge.meter || !hedge.height) {
+          continue; // Skip hedges with missing info, or return '-' if all are missing?
+        }
 
-      // Determine price per meter based on height and type
-      if (height <= 150) {
-        pricePerMeter = isSingle ? (withWaste ? 25 : 20) : (withWaste ? 40 : 35);
-      } else if (height <= 200) {
-        pricePerMeter = isSingle ? (withWaste ? 40 : 35) : (withWaste ? 60 : 55);
-      } else if (height <= 250) {
-        pricePerMeter = isSingle ? (withWaste ? 50 : 45) : (withWaste ? 80 : 75);
-      } else {
+        let pricePerMeter;
+        const height = hedge.height;
+        const isSingle = hedge.type === 'single';
+        const withWaste = hedge.wasteRemoval;
+
+        // Determine price per meter based on height and type for the current hedge
+        if (height <= 150) {
+          pricePerMeter = isSingle ? (withWaste ? 25 : 20) : (withWaste ? 40 : 35);
+        } else if (height <= 200) {
+          pricePerMeter = isSingle ? (withWaste ? 40 : 35) : (withWaste ? 60 : 55);
+        } else if (height <= 250) {
+          pricePerMeter = isSingle ? (withWaste ? 50 : 45) : (withWaste ? 80 : 75);
+        } else {
+          contactRequired = true; // Mark that contact is required if any hedge is too high
+          break; // Stop calculation if contact is needed for any hedge
+        }
+
+        const hedgePrice = hedge.meter * pricePerMeter;
+        if (!isNaN(hedgePrice)) {
+          totalPrice += hedgePrice;
+        }
+      }
+
+      if (contactRequired) {
         return 'Kontakt os for pris';
       }
 
-      const price = this.calc.meter * pricePerMeter;
-      // Ensure price is calculated before formatting
-      if (isNaN(price)) return '-'; // Handle potential NaN if meter/height are invalid momentarily
-      return price.toLocaleString('da-DK', { style: 'currency', currency: 'DKK', maximumFractionDigits: 0 });
+      // Handle case where no valid hedges were entered or total is zero
+      if (totalPrice === 0 && this.hedges.some(h => !h.meter || !h.height)) {
+         return '-'; // Show dash if inputs are missing
+      }
+       if (totalPrice === 0 && this.hedges.every(h => h.meter > 0 && h.height > 0)) {
+         // If all inputs are valid but price is 0 (e.g. 0 meters), show 0 kr.
+         return (0).toLocaleString('da-DK', { style: 'currency', currency: 'DKK', maximumFractionDigits: 0 });
+       }
+       if (totalPrice === 0){
+           return '-'; // Default to dash if nothing calculated yet
+       }
+
+
+      // Format the total price
+      return totalPrice.toLocaleString('da-DK', { style: 'currency', currency: 'DKK', maximumFractionDigits: 0 });
     },
   },
   methods: {
+    addHedge() {
+      this.hedges.push({
+        // Use and increment the counter from data()
+        id: this.hedgeIdCounter++, 
+        meter: 10, // Default values for new hedge
+        height: 150, 
+        type: 'single', 
+        wasteRemoval: true, 
+        errors: { meter: '', height: '' } 
+      });
+    },
+    removeHedge(idToRemove) {
+      // Prevent removing the last hedge
+      if (this.hedges.length > 1) {
+        this.hedges = this.hedges.filter(hedge => hedge.id !== idToRemove);
+      } else {
+        // Optionally provide feedback to the user that the last hedge cannot be removed
+        console.warn("Cannot remove the last hedge."); 
+        // Or reset the last hedge to defaults
+        // this.hedges[0] = { id: this.hedges[0].id, meter: 10, height: 150, type: 'single', wasteRemoval: true, errors: { meter: '', height: '' } };
+      }
+    },
     scrollTo(sectionId) {
       console.log('Scroll to:', sectionId); 
       const el = document.getElementById(sectionId);
@@ -360,45 +441,51 @@ export default {
       if (contactEl) {
         const nav = document.querySelector('.main-nav');
         const navHeight = nav ? nav.offsetHeight : 60;
-        const offset = contactEl.offsetTop - navHeight - 20; // 20px extra padding
+        // Ensure offset calculation uses pageYOffset or scrollY for broader compatibility
+        const elementTop = contactEl.getBoundingClientRect().top + window.pageYOffset;
+        const offset = elementTop - navHeight - 20; // 20px extra padding
         window.scrollTo({ top: offset > 0 ? offset : 0, behavior: 'smooth' });
       } else {
          this.scrollTo('contact'); // Fallback if ref fails
       }
     },
-    validatePositiveInteger(event, field) {
+    validatePositiveInteger(event, hedge, field) {
       const value = event.target.value;
-      this.calc.errors[field] = ''; // Reset error
-      
+      hedge.errors[field] = ''; // Reset error on the specific hedge
+
       if (value === '') { // Allow empty field temporarily
-        this.calc[field] = ''; // Use empty string instead of null/undefined
+        hedge[field] = ''; 
         return;
       }
 
       const numValue = Number(value);
       
       if (isNaN(numValue)) {
-        this.calc.errors[field] = 'Venligst indtast kun tal';
-        this.calc[field] = value.replace(/[^0-9]/g, ''); // Attempt to strip non-digits
+        hedge.errors[field] = 'Venligst indtast kun tal';
+        // Attempt to strip non-digits and update the specific hedge's value
+        const sanitized = value.replace(/[^0-9]/g, '');
+        hedge[field] = sanitized === '' ? '' : Number(sanitized); 
+         // Update input value directly if sanitization occurred
+         if (event.target.value !== sanitized) {
+             event.target.value = sanitized;
+         }
         return;
       }
       
       if (numValue < 0) {
-        this.calc.errors[field] = 'Negative tal er ikke gyldige';
-        this.calc[field] = 0; // Set to 0 instead of clearing
+        hedge.errors[field] = 'Negative tal er ikke gyldige';
+        hedge[field] = 0; // Set to 0 instead of clearing
+        event.target.value = 0; // Update input value
         return;
       }
 
       // Remove any decimal points by flooring
       const sanitizedValue = Math.floor(numValue);
-      if (sanitizedValue !== numValue || value.includes('.')) {
-        // Update model value directly if needed, ensures reactivity
-        this.calc[field] = sanitizedValue; 
-        // Additionally, update the input field value directly to reflect the change
-        event.target.value = sanitizedValue;
-      } else {
-        // If it's already an integer, update the model
-        this.calc[field] = sanitizedValue;
+      // Update model value directly if needed, ensures reactivity
+      hedge[field] = sanitizedValue; 
+      // Additionally, update the input field value directly ONLY if it changed
+      if (String(event.target.value) !== String(sanitizedValue)) {
+         event.target.value = sanitizedValue;
       }
     },
     async submitForm() {
@@ -700,6 +787,8 @@ body {
   padding: 1.2rem 1rem;
   width: 100%;
   /* Max-width is handled by .hero-row */
+  flex-direction: column;
+  gap: 0.9rem; /* Slightly increased gap */
 }
 
 .calculator-card h2 {
@@ -1374,6 +1463,63 @@ body {
   /* ... existing adjustments ... */
 
   /* Footer adjustments often handled by 601px, but can add specifics if needed */
+}
+
+/* Styling for each group of hedge inputs */
+.hedge-group {
+  border: 1px solid var(--lawn-green); /* Light border */
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem; /* Space between hedge groups */
+  background-color: #f8fdf8; /* Very light green background */
+  position: relative; /* For positioning the remove button if needed */
+}
+
+/* Optional title for hedge groups when there are multiple */
+.hedge-group h4 {
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 0.95rem;
+  color: var(--leaf-green);
+  margin-bottom: 0.8rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Style for the Add/Remove buttons */
+.add-hedge-btn,
+.remove-hedge-btn {
+  background: none;
+  border: 1.5px dashed var(--leaf-green); /* Dashed border */
+  color: var(--leaf-green);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem; /* Space above button */
+  text-align: center;
+  width: 100%;
+}
+
+.add-hedge-btn:hover,
+.remove-hedge-btn:hover {
+  background: var(--lawn-green);
+  color: var(--forest-green);
+  border-style: solid; /* Solid border on hover */
+}
+
+/* Specific styling for remove button */
+.remove-hedge-btn {
+  border-color: #dc3545; /* Red border */
+  color: #dc3545; /* Red text */
+  margin-top: 1rem; /* More space before remove button */
+}
+
+.remove-hedge-btn:hover {
+  background: #fdeeee; /* Light red background on hover */
+  color: #b02a37; /* Darker red text */
 }
 
 </style>
