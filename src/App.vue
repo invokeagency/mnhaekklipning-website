@@ -2,7 +2,7 @@
   <div class="mnhaek-landing">
     <!-- Navigation Bar -->
     <nav class="main-nav">
-      <img src="/img/logo_big_2.png" alt="MN Hækklipning Logo" class="nav-logo">
+      <img :src="navbarLogoUrl" alt="MN Hækklipning Logo" class="nav-logo">
       <ul class="nav-links">
         <li><a href="#hero">Forside</a></li>
         <li><a href="#services">Ydelser</a></li>
@@ -350,6 +350,11 @@ export default {
       // Assuming image is in public/img/
       const baseUrl = process.env.BASE_URL || '/'; 
       return `${baseUrl}img/haek1.jpg`;
+    },
+    // Add computed property for the navbar logo URL
+    navbarLogoUrl() {
+      const baseUrl = process.env.BASE_URL || '/';
+      return `${baseUrl}img/logo_big_2.png`;
     },
     formattedPrice() {
       let totalPrice = 0;
