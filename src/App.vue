@@ -231,7 +231,10 @@
             <!-- Profile Cards -->
             <div class="profile-cards">
               <div class="profile-card">
-                <div class="profile-image mathias"></div> <!-- Placeholder style -->
+                <div class="profile-image mathias" 
+                     :style="{ backgroundImage: `url(${baseUrl}img/mathias.jpg)` }" 
+                     @click="openEnlargedImage(baseUrl + 'img/mathias.jpg')">
+                </div>
                 <div class="profile-info">
                   <h3>Mathias</h3>
                   <a href="tel:+4525540004" class="profile-phone">
@@ -241,7 +244,10 @@
                 </div>
               </div>
               <div class="profile-card">
-                <div class="profile-image nikolaj"></div> <!-- Placeholder style -->
+                <div class="profile-image nikolaj" 
+                     :style="{ backgroundImage: `url(${baseUrl}img/nikolaj.jpg)`, backgroundSize: '120%' }" 
+                     @click="openEnlargedImage(baseUrl + 'img/nikolaj.jpg')">
+                </div>
                 <div class="profile-info">
                   <h3>Nikolaj</h3>
                   <a href="tel:+4542776672" class="profile-phone">
@@ -261,6 +267,12 @@
         </div>
       </div>
     </section>
+
+    <!-- Enlarged Image Overlay -->
+    <div v-if="isImageEnlarged" class="enlarged-image-overlay" @click="closeEnlargedImage">
+      <img :src="enlargedImageUrl" alt="Enlarged profile image" @click.stop />
+      <button class="close-enlarged-btn" @click="closeEnlargedImage">&times;</button>
+    </div>
 
     <!-- Guide Modal -->
     <div v-if="showGuide" class="modal-overlay" @click.self="showGuide = false">
@@ -352,7 +364,10 @@ export default {
         error: '',
         success: ''
       },
-      isSubmitting: false
+      isSubmitting: false,
+      // Data properties for enlarged image feature
+      enlargedImageUrl: null,
+      isImageEnlarged: false
     }
   },
   mounted() {
@@ -360,15 +375,16 @@ export default {
     emailjs.init('R-5pSmyto-K4pmOTV'); 
   },
   computed: {
+    baseUrl() {
+      return process.env.BASE_URL || '/';
+    },
     backgroundImageUrl() {
       // Assuming image is in public/img/
-      const baseUrl = process.env.BASE_URL || '/'; 
-      return `${baseUrl}img/haek1.jpg`;
+      return `${this.baseUrl}img/haek1.jpg`;
     },
     // Add computed property for the navbar logo URL
     navbarLogoUrl() {
-      const baseUrl = process.env.BASE_URL || '/';
-      return `${baseUrl}img/logo_big_2.png`;
+      return `${this.baseUrl}img/logo_big_2.png`;
     },
     formattedPrice() {
       let totalPrice = 0;
@@ -514,6 +530,18 @@ export default {
       if (String(event.target.value) !== String(sanitizedValue)) {
          event.target.value = sanitizedValue;
       }
+    },
+    // Methods for enlarged image feature
+    openEnlargedImage(imageUrl) {
+      this.enlargedImageUrl = imageUrl;
+      this.isImageEnlarged = true;
+    },
+    closeEnlargedImage() {
+      this.isImageEnlarged = false;
+      // Optional: Clear the URL after a short delay if using fade-out animations
+      // setTimeout(() => {
+      //   this.enlargedImageUrl = null;
+      // }, 300); // Match animation duration
     },
     async submitForm() {
       this.isSubmitting = true;
@@ -1589,5 +1617,40 @@ body {
   overflow-y: scroll;
 }
 /* --- End Container Styles --- */
+
+/* Enlarged Image Overlay Styles */
+.enlarged-image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000; /* Ensure it's above other content */
+  cursor: pointer; /* Indicate clicking closes it */
+}
+
+.enlarged-image-overlay img {
+  max-width: 80vw; /* Max width relative to viewport width */
+  max-height: 80vh; /* Max height relative to viewport height */
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  cursor: default; /* Reset cursor for the image itself */
+}
+
+.close-enlarged-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2.5rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
 
 </style>
