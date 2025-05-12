@@ -376,10 +376,11 @@ export default {
   },
   computed: {
     baseUrl() {
-      return process.env.BASE_URL || '/';
+      // Using relative path instead of absolute path for better compatibility with various hosting environments
+      return './';
     },
     backgroundImageUrl() {
-      // Assuming image is in public/img/
+      // Using relative path to img directory
       return `${this.baseUrl}img/haek1.jpg`;
     },
     // Add computed property for the navbar logo URL
