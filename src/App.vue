@@ -376,8 +376,7 @@ export default {
   },
   computed: {
     baseUrl() {
-      // Using relative path instead of absolute path for better compatibility with various hosting environments
-      return './';
+      return process.env.BASE_URL || '/';
     },
     backgroundImageUrl() {
       // Using relative path to img directory
