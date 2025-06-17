@@ -389,30 +389,40 @@ export default {
     formattedPrice() {
       let totalPrice = 0;
       let contactRequired = false;
+      let validHedgeCount = 0;
 
-      // Iterate over each hedge in the list
       for (const hedge of this.hedges) {
         if (!hedge.meter || !hedge.height) {
-          continue; // Skip hedges with missing info, or return '-' if all are missing?
+          continue;
         }
-
+        validHedgeCount++;
         let pricePerMeter;
         const height = hedge.height;
         const isSingle = hedge.type === 'single';
         const withWaste = hedge.wasteRemoval;
 
-        // Determine price per meter based on height and type for the current hedge
         if (height <= 150) {
-          pricePerMeter = isSingle ? (withWaste ? 25 : 20) : (withWaste ? 40 : 35);
+          if (withWaste) {
+            pricePerMeter = isSingle ? 20 : 35;
+          } else {
+            pricePerMeter = isSingle ? 10 : 20;
+          }
         } else if (height <= 200) {
-          pricePerMeter = isSingle ? (withWaste ? 40 : 35) : (withWaste ? 60 : 55);
+          if (withWaste) {
+            pricePerMeter = isSingle ? 30 : 55;
+          } else {
+            pricePerMeter = isSingle ? 25 : 50;
+          }
         } else if (height <= 250) {
-          pricePerMeter = isSingle ? (withWaste ? 50 : 45) : (withWaste ? 80 : 75);
+          if (withWaste) {
+            pricePerMeter = isSingle ? 40 : 75;
+          } else {
+            pricePerMeter = isSingle ? 35 : 70;
+          }
         } else {
-          contactRequired = true; // Mark that contact is required if any hedge is too high
-          break; // Stop calculation if contact is needed for any hedge
+          contactRequired = true;
+          break;
         }
-
         const hedgePrice = hedge.meter * pricePerMeter;
         if (!isNaN(hedgePrice)) {
           totalPrice += hedgePrice;
@@ -423,20 +433,21 @@ export default {
         return 'Kontakt os for pris';
       }
 
-      // Handle case where no valid hedges were entered or total is zero
       if (totalPrice === 0 && this.hedges.some(h => !h.meter || !h.height)) {
-         return '-'; // Show dash if inputs are missing
+        return '-';
       }
-       if (totalPrice === 0 && this.hedges.every(h => h.meter > 0 && h.height > 0)) {
-         // If all inputs are valid but price is 0 (e.g. 0 meters), show 0 kr.
-         return (0).toLocaleString('da-DK', { style: 'currency', currency: 'DKK', maximumFractionDigits: 0 });
-       }
-       if (totalPrice === 0){
-           return '-'; // Default to dash if nothing calculated yet
-       }
+      if (totalPrice === 0 && this.hedges.every(h => h.meter > 0 && h.height > 0)) {
+        return (0).toLocaleString('da-DK', { style: 'currency', currency: 'DKK', maximumFractionDigits: 0 });
+      }
+      if (totalPrice === 0) {
+        return '-';
+      }
 
+      // Læg kørselstillæg til hvis der er mindst én gyldig hæk
+      if (validHedgeCount > 0) {
+        totalPrice += 200;
+      }
 
-      // Format the total price
       return totalPrice.toLocaleString('da-DK', { style: 'currency', currency: 'DKK', maximumFractionDigits: 0 });
     },
   },
@@ -962,6 +973,10 @@ body {
 .price {
   font-weight: 900;
   font-size: 1.1rem;
+  min-width: 12em;
+  display: inline-block;
+  text-align: right;
+  white-space: nowrap;
 }
 
 /* Error Message Styling */
