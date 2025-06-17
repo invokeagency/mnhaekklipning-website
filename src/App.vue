@@ -376,15 +376,16 @@ export default {
   },
   computed: {
     baseUrl() {
-      return process.env.BASE_URL || '/';
+      // Brug altid './' som baseUrl for relative paths
+      return './';
     },
     backgroundImageUrl() {
-      // Using relative path to img directory
-      return `${this.baseUrl}img/haek1.jpg`;
+      // Brug relative path
+      return this.baseUrl + 'img/haek1.jpg';
     },
     // Add computed property for the navbar logo URL
     navbarLogoUrl() {
-      return `${this.baseUrl}img/logo_big_2.png`;
+      return this.baseUrl + 'img/logo_big_2.png';
     },
     formattedPrice() {
       let totalPrice = 0;
