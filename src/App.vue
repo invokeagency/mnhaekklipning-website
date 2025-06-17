@@ -11,6 +11,8 @@
       </ul>
     </nav>
 
+    <div id="spacer"></div> 
+
     <!-- Hero + Calculator Section -->
     <section 
       class="hero" 
@@ -727,7 +729,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%; 
+  min-height: calc(100vh - var(--nav-height, 50px));
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -748,12 +750,13 @@ body {
   position: relative;
   z-index: 2;
   display: flex;
-  flex-direction: column; /* Default stack */
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: space-between;
   align-items: center;
-  /* Reduce bottom padding to minimum */
-  padding: 0.5rem 1rem 0rem 1rem; /* Removed bottom padding */
-  flex-grow: 1; /* Make content container fill hero height */
-  gap: 1.5rem; 
+  padding: 2.5rem 1rem 4.5rem 1rem; /* Mere top og bund padding */
+  gap: 1.5rem;
+  margin-top: 5rem;
 }
 
 /* Row (used mainly for desktop layout) */
@@ -833,15 +836,29 @@ body {
   color: var(--white);
   cursor: pointer;
   opacity: 0.8;
-  z-index: 2; 
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center internal text/svg */
-  gap: 0.1rem; /* Reduce internal gap */
-  /* Minimize vertical margin - Increased bottom margin */
-  margin: 0.2rem auto 1.5rem auto; /* Increased bottom margin */
+  align-items: center;
+  gap: 0.1rem;
+  margin: 0 auto 1.5rem auto;
   transition: opacity 0.3s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
+
+@media (max-width: 600px) {
+  .hero-content-container {
+    padding: 2.2rem 1rem 5.5rem 1rem; /* Ekstra bund-padding på mobil */
+  }
+  .scroll-indicator {
+    position: static;
+    margin: 2.5rem auto 0 auto;
+  }
+}
+
 .scroll-text {
   font-family: 'Nunito', Arial, sans-serif;
   font-size: 0.9rem;
@@ -1667,6 +1684,12 @@ body {
   border: none;
   cursor: pointer;
   line-height: 1;
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+  .scroll-indicator {
+    display: none;
+  }
 }
 
 </style>
