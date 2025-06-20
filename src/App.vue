@@ -38,8 +38,14 @@
             <!-- Added paragraph about service deduction -->
             <p class="service-deduction-info">💡 Husk! Du kan trække vores arbejde fra i servicefradraget – det gør din hæk endnu grønnere for pengepungen! 🌿</p>
             <div class="hero-cta-wrapper">
-              <!-- Basic button, functionality can be added later -->
-              <button class="hero-cta-btn" @click="scrollTo('contact')">Kontakt os</button> 
+              <!-- Change from scrollTo('contact') to scrollToContact -->
+              <button class="hero-cta-btn" @click="scrollToContact">Kontakt os</button> 
+            </div>
+            <!-- Scroll indicator moved inside hero-content -->
+            <div class="scroll-indicator" @click="scrollTo('services')">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
           </div>
           <!-- Calculator Card -->
@@ -127,14 +133,6 @@
           </div>
         </div> <!-- End hero-row -->
       </div> <!-- End hero-content-container -->
-      
-      <!-- Scroll Indicator -->
-      <div class="scroll-indicator" @click="scrollTo('services')">
-        <span class="scroll-text">Rul ned for at høre mere om os</span>
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
     </section>
 
     <!-- Service Features Section -->
@@ -754,9 +752,9 @@ body {
   flex: 1 1 auto;
   justify-content: space-between;
   align-items: center;
-  padding: 2.5rem 1rem 4.5rem 1rem; /* Mere top og bund padding */
+  padding: 2.5rem 1rem 6rem 1rem; /* Increased bottom padding to make room for scroll indicator */
   gap: 1.5rem;
-  margin-top: 5rem;
+  margin-top: 4rem;
 }
 
 /* Row (used mainly for desktop layout) */
@@ -838,39 +836,14 @@ body {
   opacity: 0.8;
   z-index: 2;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
-  margin: 0 auto 1.5rem auto;
+  margin-top: 2.5rem;
   transition: opacity 0.3s;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
-@media (max-width: 600px) {
-  .hero-content-container {
-    padding: 2.2rem 1rem 5.5rem 1rem; /* Ekstra bund-padding på mobil */
-  }
-  .scroll-indicator {
-    position: static;
-    margin: 2.5rem auto 0 auto;
-  }
+.scroll-indicator:hover {
+  opacity: 1;
 }
-
-.scroll-text {
-  font-family: 'Nunito', Arial, sans-serif;
-  font-size: 0.9rem;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  white-space: nowrap;
-}
-/* Reduce size of the SVG arrow */
-.scroll-indicator svg {
-  width: 30px; 
-  height: 30px; 
-}
-.scroll-indicator:hover { opacity: 1; }
 
 /* --- Calculator Card & Form (Mobile First) --- */
 .calculator-card {
@@ -1132,7 +1105,7 @@ body {
 
 /* Desktop / Larger Screens */
 @media (min-width: 901px) {
-   /* ... existing nav adjustments ... */
+  /* ... existing nav adjustments ... */
 
    .hero-content-container {
      align-items: center; 
